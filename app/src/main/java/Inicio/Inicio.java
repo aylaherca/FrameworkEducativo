@@ -32,6 +32,6 @@ public class Inicio extends AppCompatActivity {
             Intent intent = new Intent(Inicio.this, Inicio.class);
             startActivity(intent);
             finish(); // Close the splash activity
-        }, 3000); // Duration in milliseconds
+        }, 3000); //duracion en milisegundos
     }
 }
