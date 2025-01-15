@@ -12,4 +12,16 @@
 
     <string name="descLogoElorrieta">Logo Elorrieta</string>
     <string name="descLogoGif">Logo Gif</string>
+
+    <!-- Botones -->
+    <string name="btnEntrar">Entrar</string>
+
+    <!-- Login -->
+    <string name="phUser">Usuario</string>
+    <string name="phContrasena">Contraseña</string>
+    <string name="txtRecuperarContrasena">¿Has olvidado tu contraseña?</string>
+    <string name="btnLogin">Login</string>
+
+
+
 </resources>
