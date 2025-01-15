@@ -19,7 +19,7 @@
     <!-- Login -->
     <string name="phUser">Usuario</string>
     <string name="phContrasena">Contraseña</string>
-    <string name="txtRecuperarContrasena">¿Has olvidado tu contraseña?</string>
+    <string name="txtRecuperarContrasena"><u>¿Has olvidado tu contraseña?</u></string>
     <string name="btnLogin">Login</string>
 
 

@@ -1,16 +1,15 @@
-package Inicio;
+package com.example.frameworkeducativoreto2grupo2.Inicio;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.widget.Button;
 import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.frameworkeducativoreto2grupo2.R;
 
-import Login.Login;
+import com.example.frameworkeducativoreto2grupo2.Login.Login;
 
 public class Inicio extends AppCompatActivity {
 
