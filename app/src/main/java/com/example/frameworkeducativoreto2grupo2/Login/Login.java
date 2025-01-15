@@ -24,11 +24,8 @@ public class Login extends AppCompatActivity {
         TextView textViewRecuperarContrasena = findViewById(R.id.textViewRecuperarContrasena);
 
         //listener recuperar contraseña
-        textViewRecuperarContrasena.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(Login.this, "Por favor, revisa tu correo para recuperar la contraseña.", Toast.LENGTH_SHORT).show();
-            }
+        textViewRecuperarContrasena.setOnClickListener(v -> {
+            Toast.makeText(Login.this, "Por favor, revisa tu correo para recuperar la contraseña.", Toast.LENGTH_SHORT).show();
         });
 
 
