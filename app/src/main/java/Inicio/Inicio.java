@@ -27,11 +27,11 @@ public class Inicio extends AppCompatActivity {
                 .load(R.raw.logo_gif) // Path to the GIF in res/raw
                 .into(gifImageView);
 
-        // Delay for 3 seconds before navigating to MainActivity
+        //delay de 3 segundos antes de ir al siguiente activity
         new Handler().postDelayed(() -> {
             Intent intent = new Intent(Inicio.this, Inicio.class);
             startActivity(intent);
-            finish(); // Close the splash activity
+            finish(); //cierra el splash
         }, 3000); //duracion en milisegundos
     }
 }
