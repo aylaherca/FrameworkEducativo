@@ -22,6 +22,9 @@
     <string name="txtRecuperarContrasena"><u>¿Has olvidado tu contraseña?</u></string>
     <string name="btnLogin">Login</string>
 
+    <!-- Menu -->
+    <string name="descBotonPerfil">Boton perfil de usuario</string>
+    <string name="descBotonDesconectar">Boton desconectar</string>
 
 
 </resources>
