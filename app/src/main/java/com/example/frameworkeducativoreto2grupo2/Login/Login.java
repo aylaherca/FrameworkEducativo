@@ -55,26 +55,34 @@ public class Login extends AppCompatActivity {
         //boton login
         btnLogin.setOnClickListener(view -> {
             String txtUsuario = String.valueOf(usuario.getText()).trim();
-            String txtcontrasena = String.valueOf(contrasena.getText()).trim();
+            String txtContrasena = String.valueOf(contrasena.getText()).trim();
             //recoger el tipo de usuario seleccionado del spinner, usar name() para obtener el string representante del enum seleccionado ("profesor" o "estudiante")
             TipoUsuario tipoUsuarioSeleccionado = (TipoUsuario) spinnerTipoUser.getSelectedItem();
             String tipoUser = tipoUsuarioSeleccionado != null ? tipoUsuarioSeleccionado.name() : "";
 
-            //comprobar login
-            if(metodos.comprobarLogin(txtUsuario, txtcontrasena)) { //no hay campos vacios
+            //comprobar campos vacios en el login
+            if(!metodos.comprobarLogin(txtUsuario, txtContrasena)) { // hay campos vacios
 
-                //aqui mirar el login respecto a la base de datos --> toast de login correcto o incorrecto
-
-                Toast.makeText(Login.this, "Login correcto.", Toast.LENGTH_SHORT).show();
-
-                //resetear los campos
-                usuario.setText("");
-                contrasena.setText("");
-
-
-            }else { //hay un campo vacio
-                Toast.makeText(Login.this, "Hay un campo vacio.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Login.this, "Hay campos vacios.", Toast.LENGTH_SHORT).show();
             }
+
+            //llamamos al servidor para validar el login
+            new Thread(() -> {
+                String result = metodos.login(txtUsuario, txtContrasena, tipoUser);
+
+                //actualizamos la interfaz en base a la respuesta obtenida del servidor
+                runOnUiThread(() -> {
+                    if (result.startsWith("Welcome")) {
+                        Toast.makeText(Login.this, result + "login correcto", Toast.LENGTH_SHORT).show();
+                        // Navigate to the next screen or perform other actions
+                        usuario.setText("");
+                        contrasena.setText("");
+                    } else {
+                        Toast.makeText(Login.this, result + "login incorrecto", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }).start();
+
         });
 
 
