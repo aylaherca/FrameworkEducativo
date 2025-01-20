@@ -8,12 +8,15 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <!-- tema colores -->
-    <color name="azulBlanco">#E0FBFC</color>
-    <color name="azulClaro">#98C1D9</color>
-    <color name="azulMedio">#3D5A80</color>
-    <color name="azulOscuro">#293241</color>
-    <color name="rojo">#EE6C4D</color>
+    <!-- tema colores 1 -->
+    <color name="azulBlanco">#F0EBD8</color>
+    <color name="azulClaro">#748CAB</color>
+    <color name="azulMedio">#3E5C76</color>
+    <color name="azulOscuro">#1D2D44</color>
+    <color name="azulNegro">#0D1321</color>
+    <color name="naranja">#D1450E</color>
+
+
 
 
 </resources>

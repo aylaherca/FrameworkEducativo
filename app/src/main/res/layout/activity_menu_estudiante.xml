@@ -13,7 +13,6 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:background="@drawable/circular_button_background"
-
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -49,5 +48,107 @@
         app:layout_constraintVertical_bias="0.023"
         app:srcCompat="@drawable/baseline_power_settings_new_24"
         android:contentDescription="@string/descBotonDesconectar"/>
+
+    <Button
+        android:id="@+id/btnConsultarHorarios"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:backgroundTint="@color/azulOscuro"
+        android:text="@string/btnConsultarHorarios"
+        app:cornerRadius="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.381" />
+
+    <Button
+        android:id="@+id/btnHorariosPropios"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:backgroundTint="@color/azulClaro"
+        android:text="@string/btnHorariosPropios"
+        app:cornerRadius="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.455" />
+
+
+
+    <Button
+        android:id="@+id/btnHorariosProfesores"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:backgroundTint="@color/azulMedio"
+        android:text="@string/btnHorariosProfesores"
+        app:cornerRadius="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.528" />
+
+    <Button
+    android:id="@+id/btnReuniones"
+    android:layout_width="250dp"
+    android:layout_height="50dp"
+    android:backgroundTint="@color/azulOscuro"
+    android:text="@string/btnReuniones"
+    app:cornerRadius="50dp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.496"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintVertical_bias="0.621" />
+
+    <Button
+    android:id="@+id/btnCrearReunion"
+    android:layout_width="250dp"
+    android:layout_height="50dp"
+    android:backgroundTint="@color/azulClaro"
+    android:text="@string/btnCrearReuniones"
+    app:cornerRadius="50dp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.496"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintVertical_bias="0.694" />
+
+    <Button
+        android:id="@+id/btnConsultarReuniones"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:backgroundTint="@color/azulMedio"
+        android:text="@string/btnConsultarReuniones"
+        app:cornerRadius="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.767" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="273dp"
+        android:layout_height="38dp"
+        android:text="@string/mensaje"
+        android:textAlignment="center"
+        android:textColor="@color/azulNegro"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.179" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

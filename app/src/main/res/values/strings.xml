@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">FrameworkEducativoReto2Grupo2</string>
+    <string name="app_name">Framework Educativo</string>
     <string name="title_activity_login">Login</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
@@ -23,8 +23,30 @@
     <string name="btnLogin">Login</string>
 
     <!-- Menu -->
+    <string name="mensaje">Bienvenida/o!</string>
     <string name="descBotonPerfil">Boton perfil de usuario</string>
     <string name="descBotonDesconectar">Boton desconectar</string>
+    <string name="btnConsultarHorarios">Consultar horarios</string>
+    <string name="btnReuniones">Reuniones</string>
+    <string name="btnHorariosPropios">Mis horarios</string>
+    <string name="btnHorariosProfesores">Horarios de profesores</string>
+    <string name="btnCrearReuniones">Crear reunión</string>
+    <string name="btnConsultarReuniones">Consultar reuniones</string>
+    <string name="btnConsultarDatosEstudiantes">Consultar datos de estudiantes</string>
+
+    <!-- Perfil estudiante -->
+    <string name="txtNombre">Nombre:</string>
+    <string name="txtEmail">Email:</string>
+    <string name="txtUsuario">Usuario:</string>
+    <string name="txtApellidos">Apellidos:</string>
+    <string name="txtDNI">DNI:</string>
+    <string name="txtCmabiarFoto">Cambiar foto</string>
+    <string name="descBotonAtras">Boton atras</string>
+    <string name="txtDatosGenerales">Datos generales</string>
+    <string name="txtCIcloCursado">Ciclo cursado:</string>
+    <string name="txtDatosAcademicos">Datos académicos</string>
+    <string name="txtNumCurso">Nº de curso:</string>
+    <string name="txtModalidadDUAL">Modalidad DUAL:</string>
 
 
 </resources>
