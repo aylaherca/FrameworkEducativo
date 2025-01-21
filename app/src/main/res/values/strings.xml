@@ -48,5 +48,16 @@
     <string name="txtNumCurso">Nº de curso:</string>
     <string name="txtModalidadDUAL">Modalidad DUAL:</string>
 
+    <!-- Horarios profesor -->
+    <string name="txtHorarios">Horarios</string>
+    <string name="descTablaHorarios">Tabla de horarios</string>
+    
+    <!-- Datos estudiantes ventana -->
+    <string name="txtGrupo">Grupo:</string>
+    <string name="txtCiclo">Ciclo:</string>
+    <string name="txtCursoAcademico">Curso academico:</string>
+    <string name="txtDatosEstudiantes">Datos de estudiantes</string>
+    <string name="descFotoPersona">Foto persona</string>
+
 
 </resources>

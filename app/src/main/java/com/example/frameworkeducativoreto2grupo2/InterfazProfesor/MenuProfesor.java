@@ -48,7 +48,8 @@ public class MenuProfesor extends AppCompatActivity {
         //listener boton horarios ------------------------------------------------------------------------------- BOTON CONSULTAR HORARIOS
         btnConsultarHorarios.setOnClickListener(view -> {
 
-            //activity horarios***
+            Intent intentHorariosProfesor = new Intent(MenuProfesor.this, HorariosProfesor.class);
+            startActivity(intentHorariosProfesor);
 
         });
 
@@ -90,14 +91,20 @@ public class MenuProfesor extends AppCompatActivity {
 
         });
 
+        //listener boton datos estudiantes ------------------------------------------------------------------------------- BOTON DATOS ESTUDIANTES
+        btnConsultarDatosEstudiantes.setOnClickListener(view -> {
+            Intent intentProfesorPerfil = new Intent(MenuProfesor.this, DatosEstudiantes.class);
+            startActivity(intentProfesorPerfil);
+        });
+
         //listener boton crear reunion ------------------------------------------------------------------------------- BOTON CREAR REUNION
         //listener boton consultar reuniones ------------------------------------------------------------------------------- BOTON CONSULTAR REUNIONES
 
 
         //listener boton imagen perfil ------------------------------------------------------------------------------- BOTON IMAGEN PERFIL
         btnPerfil.setOnClickListener(view -> {
-            Intent intentEstudiantePerfil = new Intent(MenuProfesor.this, PerfilProfesor.class);
-            startActivity(intentEstudiantePerfil);
+            Intent intentProfesorPerfil = new Intent(MenuProfesor.this, PerfilProfesor.class);
+            startActivity(intentProfesorPerfil);
         });
 
         //listener boton desconectar ------------------------------------------------------------------------------- BOTON DESCONECTAR
