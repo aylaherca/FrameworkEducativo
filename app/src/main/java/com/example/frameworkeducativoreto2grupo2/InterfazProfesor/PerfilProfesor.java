@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -39,6 +40,7 @@ public class PerfilProfesor extends AppCompatActivity {
         TextView txtEmail = findViewById(R.id.txtEmailPerfil);
         TextView txtDNI = findViewById(R.id.txtDNIPerfil);
 
+        ImageView imageViewFotoPerfil = findViewById(R.id.imageViewFotoPerfil);
 
         //listener boton cambiar foto ------------------------------------------------------------------------------- BOTON CAMBIAR FOTO
         btnCambiarFoto.setOnClickListener(view -> {

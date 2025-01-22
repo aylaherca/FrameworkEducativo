@@ -11,6 +11,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.frameworkeducativoreto2grupo2.CrearReunion.CrearReunion;
 import com.example.frameworkeducativoreto2grupo2.R;
 
 public class MenuEstudiante extends AppCompatActivity {
@@ -116,8 +117,15 @@ public class MenuEstudiante extends AppCompatActivity {
         });
 
         //listener boton mis horarios ------------------------------------------------------------------------------- BOTON MIS HORARIOS
+
         //listener boton horarios profesores ------------------------------------------------------------------------------- BOTON HORARIOS PROFESORES
+
         //listener boton crear reunion ------------------------------------------------------------------------------- BOTON CREAR REUNION
+        btnCrearReunion.setOnClickListener(view -> {
+            Intent intentCrearReunion = new Intent(MenuEstudiante.this, CrearReunion.class);
+            startActivity(intentCrearReunion);
+        });
+
         //listener boton consultar reuniones ------------------------------------------------------------------------------- BOTON CONSULTAR REUNIONES
 
 

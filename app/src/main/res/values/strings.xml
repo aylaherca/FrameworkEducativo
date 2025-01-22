@@ -51,13 +51,25 @@
     <!-- Horarios profesor -->
     <string name="txtHorarios">Horarios</string>
     <string name="descTablaHorarios">Tabla de horarios</string>
-    
+
     <!-- Datos estudiantes ventana -->
     <string name="txtGrupo">Grupo:</string>
     <string name="txtCiclo">Ciclo:</string>
     <string name="txtCursoAcademico">Curso academico:</string>
     <string name="txtDatosEstudiantes">Datos de estudiantes</string>
     <string name="descFotoPersona">Foto persona</string>
+
+    <!-- Crear reunion -->
+    <string name="txtCrearReunion">Crear reunión</string>
+    <string name="txtTitulo">Titulo:</string>
+    <string name="txtTema">Tema:</string>
+    <string name="txtDiaHora">Día y hora:</string>
+    <string name="txtAula">Aula:</string>
+    <string name="txtUbicacion">Ubicación:</string>
+    <string name="txtMiembrosReunion">Miembros de la reunión:</string>
+    <string name="btnCrearNuevaReunion">Crear nueva reunión</string>
+    <string name="phTitulo">Propósito de la reunión</string>
+    <string name="phTema">Breve descripción de los asuntos a tratar</string>
 
 
 </resources>

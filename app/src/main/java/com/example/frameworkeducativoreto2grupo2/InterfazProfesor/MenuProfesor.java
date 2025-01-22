@@ -12,6 +12,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.frameworkeducativoreto2grupo2.CrearReunion.CrearReunion;
 import com.example.frameworkeducativoreto2grupo2.R;
 
 public class MenuProfesor extends AppCompatActivity {
@@ -98,6 +99,11 @@ public class MenuProfesor extends AppCompatActivity {
         });
 
         //listener boton crear reunion ------------------------------------------------------------------------------- BOTON CREAR REUNION
+        btnCrearReunion.setOnClickListener(view -> {
+            Intent intentCrearReunion = new Intent(MenuProfesor.this, CrearReunion.class);
+            startActivity(intentCrearReunion);
+        });
+
         //listener boton consultar reuniones ------------------------------------------------------------------------------- BOTON CONSULTAR REUNIONES
 
 
