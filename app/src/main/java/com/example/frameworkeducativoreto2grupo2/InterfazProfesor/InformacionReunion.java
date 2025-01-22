@@ -1,8 +1,7 @@
-package com.example.frameworkeducativoreto2grupo2.CrearReunion;
+package com.example.frameworkeducativoreto2grupo2.InterfazProfesor;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Button;
 import android.widget.ImageButton;
 
 import androidx.activity.EdgeToEdge;
@@ -11,43 +10,37 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.frameworkeducativoreto2grupo2.InterfazProfesor.DatosEstudiantes;
-import com.example.frameworkeducativoreto2grupo2.InterfazProfesor.MenuProfesor;
+import com.example.frameworkeducativoreto2grupo2.ConsultarReunion.ConsultarReuniones;
 import com.example.frameworkeducativoreto2grupo2.R;
 
-public class CrearReunion extends AppCompatActivity {
+public class InformacionReunion extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_crear_reunion);
+        setContentView(R.layout.activity_informacion_reunion);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
-        //variables
-        ImageButton btnAtras = findViewById(R.id.imageButtonAtrasMP3);
-        Button btnCrearNuevaReunion = findViewById(R.id.btnCrearNuevaReunion);
+        ImageButton btnAtras = findViewById(R.id.imageButtonAtrasMP5);
 
 
 
 
-        //listener boton nueva reunion ------------------------------------------------------------------------------- BOTON CREAR NUEVA REUNION
-        btnCrearNuevaReunion.setOnClickListener(view -> {
-            //*****agregar los datos a la db
-        });
+
+
+
+
 
 
         //listener boton atras ------------------------------------------------------------------------------- BOTON ATRAS
         btnAtras.setOnClickListener(view -> {
-            Intent menuProfesor = new Intent(CrearReunion.this, MenuProfesor.class);
+            Intent menuProfesor = new Intent(InformacionReunion.this, MenuProfesor.class);
             startActivity(menuProfesor);
         });
-
-
-
     }
 }

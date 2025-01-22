@@ -1,4 +1,4 @@
-package com.example.frameworkeducativoreto2grupo2.InterfazProfesor;
+package com.example.frameworkeducativoreto2grupo2.ConsultarReunion;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,15 +14,18 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.frameworkeducativoreto2grupo2.InterfazProfesor.HorariosProfesor;
+import com.example.frameworkeducativoreto2grupo2.InterfazProfesor.InformacionReunion;
+import com.example.frameworkeducativoreto2grupo2.InterfazProfesor.MenuProfesor;
 import com.example.frameworkeducativoreto2grupo2.R;
 
-public class HorariosProfesor extends AppCompatActivity {
+public class ConsultarReuniones extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_horarios_profesor);
+        setContentView(R.layout.activity_consultar_reuniones);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -31,7 +34,7 @@ public class HorariosProfesor extends AppCompatActivity {
 
         //variables
         ImageButton btnAtras = findViewById(R.id.imageButtonAtrasMP4); //vuelve al menu de profesor
-        TableLayout tablaHorarios = findViewById(R.id.tablaReuniones); //tabla
+        TableLayout tablaReuniones = findViewById(R.id.tablaReuniones); //tabla
 
         //rellenar la tabla ------------------------------------------------------------------------------- RELLENAR LA TABLA
         //datos de las columnas y filas
@@ -50,7 +53,7 @@ public class HorariosProfesor extends AppCompatActivity {
             headerCell.setBackgroundResource(R.drawable.table_cell_border);
             headerRow.addView(headerCell);
         }
-        tablaHorarios.addView(headerRow);
+        tablaReuniones.addView(headerRow);
 
         //filas
         for (String hora : horas) {
@@ -67,25 +70,38 @@ public class HorariosProfesor extends AppCompatActivity {
             //añadir celdas vacias para cada dia
             for (int i = 1; i < dias.length; i++) {
                 TextView cell = new TextView(this);
-                cell.setText(""); // Initially empty
+                cell.setText("");
                 cell.setTextSize(14);
                 cell.setTextColor(getResources().getColor(R.color.black));
                 cell.setGravity(Gravity.CENTER);
                 cell.setPadding(16, 16, 16, 16);
                 cell.setBackgroundResource(R.drawable.table_cell_border);
+
+                //*************primero mirar el tipo de user que es**************************
+                //si es profesor --> informacionreuion --- si es estudiante  --> informacionReunionEstudiante
+
+                //hacer clickables las celdas solo de reuniones
+                //mirar si la celda está vacia o si el texto contiene la palabra reunion
+                String textoCelda = cell.getText().toString().toLowerCase();
+                if (!cell.getText().toString().isEmpty() && (textoCelda.contains("reunión") || textoCelda.contains("reunion"))) {
+                    //se hace clickable
+                    cell.setClickable(true);
+                    cell.setOnClickListener(view -> {
+                        //listener al activity de informacion de reuniones
+                        Intent intent = new Intent(ConsultarReuniones.this, InformacionReunion.class);
+                        startActivity(intent);
+                    });
+                }
                 row.addView(cell);
             }
-            tablaHorarios.addView(row);
+            tablaReuniones.addView(row);
         }
 
 
         //listener boton atras ------------------------------------------------------------------------------- BOTON ATRAS
         btnAtras.setOnClickListener(view -> {
-            Intent menuProfesor = new Intent(HorariosProfesor.this, MenuProfesor.class);
+            Intent menuProfesor = new Intent(ConsultarReuniones.this, MenuProfesor.class);
             startActivity(menuProfesor);
         });
-
-
-
     }
 }

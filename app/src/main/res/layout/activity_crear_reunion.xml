@@ -1,174 +1,165 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/azulBlanco"
-    tools:context=".CrearReunion.CrearReunion">
+    android:fillViewport="true">
 
-    <ImageButton
-        android:id="@+id/imageButtonAtrasMP3"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/circular_button_background"
-        android:contentDescription="@string/descBotonAtras"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.047"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.024"
-        app:srcCompat="@drawable/baseline_arrow_back_24" />
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:background="@color/azulBlanco"
+        tools:context=".CrearReunion.CrearReunion">
 
-    <TextView
-        android:id="@+id/txtCrearReunion"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/txtCrearReunion"
-        android:textColor="@color/azulOscuro"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.089" />
+        <ImageButton
+            android:id="@+id/imageButtonAtrasMP3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/circular_button_background"
+            android:contentDescription="@string/descBotonAtras"
+            app:srcCompat="@drawable/baseline_arrow_back_24"
+            android:layout_marginBottom="16dp" />
 
-    <TextView
-        android:id="@+id/txtTitulo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/txtTitulo"
-        android:textColor="@color/azulOscuro"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.048"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.255" />
+        <TextView
+            android:id="@+id/txtCrearReunion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/txtCrearReunion"
+            android:textColor="@color/azulOscuro"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="16dp" />
 
-    <TextView
-        android:id="@+id/txtTema"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/txtTema"
-        android:textColor="@color/azulOscuro"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.048"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.414" />
+        <TextView
+            android:id="@+id/txtTitulo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/txtTitulo"
+            android:textColor="@color/azulOscuro"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp" />
 
-    <TextView
-        android:id="@+id/txtDiaHora"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/txtDiaHora"
-        android:textColor="@color/azulOscuro"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.052"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <EditText
+            android:id="@+id/editTextTitulo"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="@string/phTitulo"
+            android:inputType="text"
+            android:layout_marginBottom="16dp" />
 
-    <TextView
-        android:id="@+id/txtMiembrosReunion"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/txtMiembrosReunion"
-        android:textColor="@color/azulOscuro"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.062"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.74" />
+        <TextView
+            android:id="@+id/txtTema"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/txtTema"
+            android:textColor="@color/azulOscuro"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp" />
 
-    <TextView
-        android:id="@+id/txtUbicacion"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/txtUbicacion"
-        android:textColor="@color/azulOscuro"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.046"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.66" />
+        <EditText
+            android:id="@+id/editTextTextMultiLineTema"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:hint="@string/phTema"
+            android:gravity="start|top"
+            android:inputType="textMultiLine"
+            android:layout_marginBottom="16dp" />
 
-    <TextView
-        android:id="@+id/txtAula"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/txtAula"
-        android:textColor="@color/azulOscuro"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.047"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.575" />
+        <TextView
+            android:id="@+id/txtDiaHora"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/txtDiaHora"
+            android:textColor="@color/azulOscuro"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp" />
 
-    <Button
-        android:id="@+id/btnCrearNuevaReunion"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/azulMedio"
-        android:text="@string/btnCrearNuevaReunion"
-        app:cornerRadius="50dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.961" />
+        <CalendarView
+            android:id="@+id/calendarView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp" />
 
-    <EditText
-        android:id="@+id/editTextTitulo"
-        android:layout_width="260dp"
-        android:layout_height="50dp"
-        android:ems="10"
-        android:hint="@string/phTitulo"
+        <TextView
+            android:id="@+id/txtMiembrosReunion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/txtMiembrosReunion"
+            android:textColor="@color/azulOscuro"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="start|center_vertical"
+            android:layout_marginBottom="8dp">
+
+            <TextView
+                android:id="@+id/txtNombreUser"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:text="@string/txtNombreUsuario"
+                android:textColor="@color/azulOscuro" />
+
+            <Spinner
+                android:id="@+id/spinnerUser"
+                android:layout_width="160dp"
+                android:layout_height="50dp" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/txtUbicacion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/txtUbicacion"
+            android:textColor="@color/azulOscuro"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp" />
+
+        <EditText
+            android:id="@+id/editTextUbicacion"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="@string/hintUbiacion"
         android:inputType="text"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.232" />
+        android:layout_marginBottom="16dp" />
 
-    <EditText
-        android:id="@+id/editTextTextMultiLineTema"
-        android:layout_width="260dp"
-        android:layout_height="100dp"
-        android:ems="10"
-        android:gravity="start|top"
-        android:hint="@string/phTema"
-        android:inputType="textMultiLine"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.35" />
+        <TextView
+            android:id="@+id/txtAula"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/txtAula"
+            android:textColor="@color/azulOscuro"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp" />
 
-    <CalendarView
-        android:id="@+id/calendarView"
-        android:layout_width="301dp"
-        android:layout_height="294dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.854"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.773" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <EditText
+            android:id="@+id/editTextAula"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="@string/hintAula"
+            android:inputType="text"
+            android:layout_marginBottom="16dp" />
+
+        <Button
+            android:id="@+id/btnCrearNuevaReunion"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_gravity="center_horizontal"
+            android:backgroundTint="@color/azulMedio"
+            android:text="@string/btnCrearNuevaReunion"
+            app:cornerRadius="50dp" />
+
+    </LinearLayout>
+</ScrollView>

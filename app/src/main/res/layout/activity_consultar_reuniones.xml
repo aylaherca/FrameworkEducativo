@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/azulBlanco"
-    tools:context=".InterfazProfesor.HorariosProfesor">
+    tools:context=".ConsultarReunion.ConsultarReuniones">
 
     <ScrollView
         android:id="@+id/scrollView"
@@ -61,4 +61,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.089" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
