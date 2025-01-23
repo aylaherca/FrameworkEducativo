@@ -1,4 +1,4 @@
-package com.example.frameworkeducativoreto2grupo2.InterfazProfesor;
+package com.example.frameworkeducativoreto2grupo2.InterfazEstudiante;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,15 +14,17 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.frameworkeducativoreto2grupo2.InterfazProfesor.HorariosProfesor;
+import com.example.frameworkeducativoreto2grupo2.InterfazProfesor.MenuProfesor;
 import com.example.frameworkeducativoreto2grupo2.R;
 
-public class HorariosProfesor extends AppCompatActivity {
+public class HorarioEstudiante extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_horarios_profesor);
+        setContentView(R.layout.activity_horario_estudiante);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -30,8 +32,8 @@ public class HorariosProfesor extends AppCompatActivity {
         });
 
         //variables
-        ImageButton btnAtras = findViewById(R.id.imageButtonAtrasME); //vuelve al menu de profesor
-        TableLayout tablaHorarios = findViewById(R.id.tablaHorarios); //tabla
+        ImageButton btnAtras = findViewById(R.id.imageButtonAtrasME); //vuelve al menu de estudiante
+        TableLayout tablaHorarios = findViewById(R.id.tablaHorariosEstudiante); //tabla
 
         //rellenar la tabla ------------------------------------------------------------------------------- RELLENAR LA TABLA
         //datos de las columnas y filas
@@ -81,11 +83,8 @@ public class HorariosProfesor extends AppCompatActivity {
 
         //listener boton atras ------------------------------------------------------------------------------- BOTON ATRAS
         btnAtras.setOnClickListener(view -> {
-            Intent menuProfesor = new Intent(HorariosProfesor.this, MenuProfesor.class);
-            startActivity(menuProfesor);
+            Intent menuEstudiante = new Intent(HorarioEstudiante.this, MenuEstudiante.class);
+            startActivity(menuEstudiante);
         });
-
-
-
     }
 }

@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Framework Educativo</string>
 
@@ -5,19 +6,19 @@
     <string name="descLogoGif">Logo Gif</string>
 
     <!-- Botones -->
-    <string name="btnEntrar">Sartu</string>
+    <string name="btnEntrar">Entrar</string>
 
     <!-- Login -->
-    <string name="phUser">Erabiltzailea</string>
-    <string name="phContrasena">Pasahitza</string>
-    <string name="txtRecuperarContrasena"><u>Pasahitza ahaztu zaizu?</u></string>
+    <string name="phUser">Usuario</string>
+    <string name="phContrasena">Contraseña</string>
+    <string name="txtRecuperarContrasena"><u>¿Has olvidado tu contraseña?</u></string>
     <string name="btnLogin">Login</string>
 
     <!-- Menu -->
-    <string name="mensaje">Ongi etorri!</string>
-    <string name="descBotonPerfil">Erabiltzaile-profilaren botoia</string>
-    <string name="descBotonDesconectar">Deskonektatzeko botoia</string>
-    <string name="btnConsultarHorarios">ordutegiak kontsultatu</string>
+    <string name="mensaje">Bienvenida/o!</string>
+    <string name="descBotonPerfil">Boton perfil de usuario</string>
+    <string name="descBotonDesconectar">Boton desconectar</string>
+    <string name="btnConsultarHorarios">Consultar horarios</string>
     <string name="btnReuniones">Reuniones</string>
     <string name="btnHorariosPropios">Mis horarios</string>
     <string name="btnHorariosProfesores">Horarios de profesores</string>
@@ -82,7 +83,7 @@
     <string name="txtAulaRInfo">Aula</string>
     <string name="txtUbicacionRInfo">Ubicación</string>
     <string name="txtMiembrosReunionRInfo">Miembros de la reunion</string>
-    
+
     <string name="btnAceptarR">Aceptar reunión</string>
     <string name="btnRechazarR">Rechazar reunión</string>
 
@@ -90,6 +91,4 @@
     <string name="txtListaProfesores">Lista de profesores</string>
     <string name="txtNombreP">Nombre</string>
     <string name="txtApellidoP">Apellido</string>
-
-
 </resources>

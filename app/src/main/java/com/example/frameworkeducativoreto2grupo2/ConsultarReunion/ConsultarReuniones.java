@@ -14,7 +14,6 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.frameworkeducativoreto2grupo2.InterfazProfesor.HorariosProfesor;
 import com.example.frameworkeducativoreto2grupo2.InterfazProfesor.InformacionReunion;
 import com.example.frameworkeducativoreto2grupo2.InterfazProfesor.MenuProfesor;
 import com.example.frameworkeducativoreto2grupo2.R;
@@ -33,8 +32,8 @@ public class ConsultarReuniones extends AppCompatActivity {
         });
 
         //variables
-        ImageButton btnAtras = findViewById(R.id.imageButtonAtrasMP4); //vuelve al menu de profesor
-        TableLayout tablaReuniones = findViewById(R.id.tablaReuniones); //tabla
+        ImageButton btnAtras = findViewById(R.id.imageButtonAtrasME); //vuelve al menu de profesor
+        TableLayout tablaReuniones = findViewById(R.id.tablaHorariosCR); //tabla
 
         //rellenar la tabla ------------------------------------------------------------------------------- RELLENAR LA TABLA
         //datos de las columnas y filas
@@ -78,7 +77,7 @@ public class ConsultarReuniones extends AppCompatActivity {
                 cell.setBackgroundResource(R.drawable.table_cell_border);
 
                 //*************primero mirar el tipo de user que es**************************
-                //si es profesor --> informacionreuion --- si es estudiante  --> informacionReunionEstudiante
+                //si es profesor --> informacionReuion --- si es estudiante  --> informacionReunionEstudiante
 
                 //hacer clickables las celdas solo de reuniones
                 //mirar si la celda está vacia o si el texto contiene la palabra reunion

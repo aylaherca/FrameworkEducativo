@@ -1,7 +1,7 @@
 package com.example.frameworkeducativoreto2grupo2.Clases;
 
 public enum TipoUsuario {
-    ESTUDIANTE("Estudiante"),
+    ALUMNO("Alumno"),
     PROFESOR("Profesor");
 
     private final String tipoUser;

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/azulBlanco"
-    tools:context=".InterfazProfesor.HorariosProfesor">
+    tools:context=".InterfazEstudiante.HorarioEstudiante">
 
     <ScrollView
         android:id="@+id/scrollView"
@@ -22,8 +22,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:contentDescription="@string/descTablaHorarios">
+
             <TableLayout
-                android:id="@+id/tablaHorarios"
+                android:id="@+id/tablaHorariosEstudiante"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@color/azulBlanco"
@@ -61,4 +62,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.089" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

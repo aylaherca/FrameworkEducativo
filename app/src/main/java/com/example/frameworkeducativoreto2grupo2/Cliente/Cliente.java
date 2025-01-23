@@ -1,46 +1,66 @@
 package com.example.frameworkeducativoreto2grupo2.Cliente;
 
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 
 public class Cliente {
+    private static Cliente instance;
     private Socket socket;
-    private DataInputStream dis;
-    private DataOutputStream dos;
+    private ObjectOutputStream objectOutputStream;
+    private ObjectInputStream objectInputStream;
+    private DataOutputStream dataOutputStream;
+    private DataInputStream dataInputStream;
+    private static final String SERVER_IP = "192.168.56.1";  // Change to your server's IP address.
+    private static final int SERVER_PORT = 2845;
 
-    public boolean conectar(String IP, int puerto) {
-        try {
-            socket = new Socket(IP, puerto);
-            dis = new DataInputStream(socket.getInputStream());
-            dos = new DataOutputStream(socket.getOutputStream());
-            return true;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
+    private Cliente() throws IOException {
+        socket = new Socket(SERVER_IP, SERVER_PORT);
+
+        // Initialize Object Streams
+        objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
+        objectInputStream = new ObjectInputStream(socket.getInputStream());
+
+        // Initialize Data Streams
+        dataOutputStream = new DataOutputStream(socket.getOutputStream());
+        dataInputStream = new DataInputStream(socket.getInputStream());
+    }
+
+    public static synchronized Cliente getInstance() throws IOException {
+        if (instance == null) {
+            instance = new Cliente();
         }
+        return instance;
     }
 
-    public void desconectar() {
-        try {
-            if (socket != null) socket.close();
-            if (dis != null) dis.close();
-            if (dos != null) dos.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    // Methods for Object Streams
+    public ObjectOutputStream getObjectOutputStream() {
+        return objectOutputStream;
     }
 
-    public DataInputStream getInputStream() {
-        return dis;
+    public ObjectInputStream getObjectInputStream() {
+        return objectInputStream;
     }
 
-    public DataOutputStream getOutputStream() {
-        return dos;
+    // Methods for Data Streams
+    public DataOutputStream getDataOutputStream() {
+        return dataOutputStream;
     }
 
-    public boolean isConectar() {
-        return socket != null && socket.isConnected();
+    public DataInputStream getDataInputStream() {
+        return dataInputStream;
+    }
+
+    // Close the streams and socket
+    public void close() throws IOException {
+        if (objectInputStream != null) objectInputStream.close();
+        if (objectOutputStream != null) objectOutputStream.close();
+        if (dataInputStream != null) dataInputStream.close();
+        if (dataOutputStream != null) dataOutputStream.close();
+        if (socket != null) socket.close();
+        instance = null;
     }
 }

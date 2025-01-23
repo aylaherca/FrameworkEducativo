@@ -11,6 +11,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.frameworkeducativoreto2grupo2.ConsultarReunion.ConsultarReuniones;
 import com.example.frameworkeducativoreto2grupo2.CrearReunion.CrearReunion;
 import com.example.frameworkeducativoreto2grupo2.R;
 
@@ -48,7 +49,7 @@ public class MenuEstudiante extends AppCompatActivity {
 
         //listener boton horarios ------------------------------------------------------------------------------- BOTON CONSULTAR HORARIOS
         btnConsultarHorarios.setOnClickListener(view -> {
-            if (subBtnVisible) { //si los botones secundarios estan visibles al clikar
+            if (subBtnVisible) { //si los botones secundarios estan visibles al ir a clikar
                 //esconder los botones secundarios y hacer visible el de reuniones
                 btnHorariosPropios.setVisibility(View.GONE);
                 btnHorariosProfesores.setVisibility(View.GONE);
@@ -77,7 +78,7 @@ public class MenuEstudiante extends AppCompatActivity {
                 btnConsultarHorarios.animate().scaleX(0.8f).scaleY(0.8f).setDuration(200);
             }
 
-            //alternar la visibilidad de los borones secundarios
+            //alternar la visibilidad de los botones secundarios
             subBtnVisible = !subBtnVisible;
         });
 
@@ -117,8 +118,16 @@ public class MenuEstudiante extends AppCompatActivity {
         });
 
         //listener boton mis horarios ------------------------------------------------------------------------------- BOTON MIS HORARIOS
+        btnHorariosPropios.setOnClickListener(view -> {
+            Intent intentHorarioEstudiante = new Intent(MenuEstudiante.this, HorarioEstudiante.class);
+            startActivity(intentHorarioEstudiante);
+        });
 
         //listener boton horarios profesores ------------------------------------------------------------------------------- BOTON HORARIOS PROFESORES
+        btnHorariosProfesores.setOnClickListener(view -> {
+            Intent intentListaProfesores = new Intent(MenuEstudiante.this, DatosProfesores.class);
+            startActivity(intentListaProfesores);
+        });
 
         //listener boton crear reunion ------------------------------------------------------------------------------- BOTON CREAR REUNION
         btnCrearReunion.setOnClickListener(view -> {
@@ -127,6 +136,10 @@ public class MenuEstudiante extends AppCompatActivity {
         });
 
         //listener boton consultar reuniones ------------------------------------------------------------------------------- BOTON CONSULTAR REUNIONES
+        btnConsultarReuniones.setOnClickListener(view -> {
+            Intent intentConsultarReuniones = new Intent(MenuEstudiante.this, ConsultarReuniones.class);
+            startActivity(intentConsultarReuniones);
+        });
 
 
         //listener boton imagen perfil ------------------------------------------------------------------------------- BOTON IMAGEN PERFIL

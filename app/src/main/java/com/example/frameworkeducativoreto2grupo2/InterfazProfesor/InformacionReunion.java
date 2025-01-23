@@ -39,8 +39,8 @@ public class InformacionReunion extends AppCompatActivity {
 
         //listener boton atras ------------------------------------------------------------------------------- BOTON ATRAS
         btnAtras.setOnClickListener(view -> {
-            Intent menuProfesor = new Intent(InformacionReunion.this, MenuProfesor.class);
-            startActivity(menuProfesor);
+            Intent intentConsultarReuniones = new Intent(InformacionReunion.this, ConsultarReuniones.class);
+            startActivity(intentConsultarReuniones);
         });
     }
 }
