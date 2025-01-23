@@ -13,6 +13,9 @@
     <string name="phContrasena">Contraseña</string>
     <string name="txtRecuperarContrasena"><u>¿Has olvidado tu contraseña?</u></string>
     <string name="btnLogin">Login</string>
+    <string name="toastRecuperarC">Por favor, revisa tu correo para recuperar la contraseña.</string>
+    <string name="textoRecuperarC">Hola,\n\nTu nueva contraseña es: %1$s\n\nSaludos cordiales,\nel equipo ELorbase.</string> <!-- %1$s es un placeholder para la variable que hay que meter -->
+
 
     <!-- Menu -->
     <string name="mensaje">Bienvenida/o!</string>

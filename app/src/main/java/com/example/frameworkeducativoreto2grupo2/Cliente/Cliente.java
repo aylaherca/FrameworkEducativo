@@ -14,17 +14,18 @@ public class Cliente {
     private ObjectInputStream objectInputStream;
     private DataOutputStream dataOutputStream;
     private DataInputStream dataInputStream;
-    private static final String SERVER_IP = "192.168.56.1";  // Change to your server's IP address.
-    private static final int SERVER_PORT = 2845;
+    //private static final String IP = "192.168.56.1";
+    private static final String IP = "192.168.1.144"; //casa**borrar*
+    private static final int PUERTO = 2845;
 
     private Cliente() throws IOException {
-        socket = new Socket(SERVER_IP, SERVER_PORT);
+        socket = new Socket(IP, PUERTO);
 
-        // Initialize Object Streams
+        //objeto
         objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
         objectInputStream = new ObjectInputStream(socket.getInputStream());
 
-        // Initialize Data Streams
+        //data
         dataOutputStream = new DataOutputStream(socket.getOutputStream());
         dataInputStream = new DataInputStream(socket.getInputStream());
     }
@@ -36,7 +37,7 @@ public class Cliente {
         return instance;
     }
 
-    // Methods for Object Streams
+    //getters
     public ObjectOutputStream getObjectOutputStream() {
         return objectOutputStream;
     }
@@ -45,7 +46,6 @@ public class Cliente {
         return objectInputStream;
     }
 
-    // Methods for Data Streams
     public DataOutputStream getDataOutputStream() {
         return dataOutputStream;
     }
@@ -54,13 +54,23 @@ public class Cliente {
         return dataInputStream;
     }
 
-    // Close the streams and socket
+    //desconectar
     public void close() throws IOException {
-        if (objectInputStream != null) objectInputStream.close();
-        if (objectOutputStream != null) objectOutputStream.close();
-        if (dataInputStream != null) dataInputStream.close();
-        if (dataOutputStream != null) dataOutputStream.close();
-        if (socket != null) socket.close();
-        instance = null;
+        if (objectInputStream != null) {
+            objectInputStream.close();
+        }
+        if (objectOutputStream != null) {
+            objectOutputStream.close();
+            if (dataInputStream != null) {
+                dataInputStream.close();
+            }
+            if (dataOutputStream != null) {
+                dataOutputStream.close();
+            }
+            if (socket != null) {
+                socket.close();
+            }
+            instance = null;
+        }
     }
 }

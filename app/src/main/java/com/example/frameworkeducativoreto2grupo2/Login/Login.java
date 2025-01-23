@@ -2,9 +2,9 @@ package com.example.frameworkeducativoreto2grupo2.Login;
 
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,16 +12,11 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.example.frameworkeducativoreto2grupo2.Clases.TipoUsuario;
 import com.example.frameworkeducativoreto2grupo2.Cliente.Cliente;
 import com.example.frameworkeducativoreto2grupo2.InterfazEstudiante.MenuEstudiante;
-import com.example.frameworkeducativoreto2grupo2.InterfazEstudiante.PerfilEstudiante;
 import com.example.frameworkeducativoreto2grupo2.InterfazProfesor.MenuProfesor;
 import com.example.frameworkeducativoreto2grupo2.Metodos.Metodos;
 import com.example.frameworkeducativoreto2grupo2.R;
@@ -29,6 +24,7 @@ import com.example.frameworkeducativoreto2grupo2.R;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+
 
 public class Login extends AppCompatActivity {
 
@@ -62,12 +58,15 @@ public class Login extends AppCompatActivity {
         EditText contrasena = findViewById(R.id.editTextContrasena);
 
         //listener recuperar contraseña
-        textViewRecuperarContrasena.setOnClickListener(v -> {
-            Toast.makeText(Login.this, "Por favor, revisa tu correo para recuperar la contraseña.", Toast.LENGTH_SHORT).show();
+        textViewRecuperarContrasena.setOnClickListener(view -> {
+            //query buscar email + mandar email + guardar en la bd la contraseña nueva hash*************************
 
-            //query buscar email + mandar email + guardar en la bd la contraseña nueva hash(?)
+            sendEmail();
+
+            Toast.makeText(Login.this, getString(R.string.toastRecuperarC), Toast.LENGTH_SHORT).show();
 
         });
+
 
         //poner los valores al spinner
         //arrayadapter usando los valores del enum para mostrar los nombres
@@ -78,17 +77,17 @@ public class Login extends AppCompatActivity {
         //boton login
         btnLogin.setOnClickListener(view -> {
             new Thread(() -> {
-            String txtUsuario = String.valueOf(usuario.getText()).trim();
-            String txtContrasena = String.valueOf(contrasena.getText()).trim();
-            //recoger el tipo de usuario seleccionado del spinner, usar name() para obtener el string representante del enum seleccionado ("profesor" o "estudiante")
-            TipoUsuario tipoUsuarioSeleccionado = (TipoUsuario) spinnerTipoUser.getSelectedItem();
-            String tipoUser = tipoUsuarioSeleccionado != null ? tipoUsuarioSeleccionado.getTipoUser() : "";
+                String txtUsuario = String.valueOf(usuario.getText()).trim();
+                String txtContrasena = String.valueOf(contrasena.getText()).trim();
+                //recoger el tipo de usuario seleccionado del spinner, usar name() para obtener el string representante del enum seleccionado ("profesor" o "estudiante")
+                TipoUsuario tipoUsuarioSeleccionado = (TipoUsuario) spinnerTipoUser.getSelectedItem();
+                String tipoUser = tipoUsuarioSeleccionado != null ? tipoUsuarioSeleccionado.getTipoUser() : "";
 
-            //comprobar campos vacios en el login
-            if (metodos.comprobarLoginCamposVacios(txtUsuario, txtContrasena)) { //no hay campos vacios
+                //comprobar campos vacios en el login
+                if (metodos.comprobarLoginCamposVacios(txtUsuario, txtContrasena)) { //no hay campos vacios
 
 
-                //llamamos al servidor para validar el login*****
+                    //llamamos al servidor para validar el login*****
 
 
                     try {
@@ -109,7 +108,7 @@ public class Login extends AppCompatActivity {
                         dos.flush();
 
                         boolean conexionCorrecta = dis.readBoolean();
-                        if(conexionCorrecta){
+                        if (conexionCorrecta) {
                             if (tipoUser.equals("Alumno")) {
                                 Intent intentEstudiante = new Intent(Login.this, MenuEstudiante.class);
                                 startActivity(intentEstudiante);
@@ -122,7 +121,7 @@ public class Login extends AppCompatActivity {
 
 
                         } else {
-                        //    Toast.makeText(Login.this, "No existe el usuario", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(Login.this, "No existe el usuario", Toast.LENGTH_SHORT).show();
 
                         }
 
@@ -130,23 +129,43 @@ public class Login extends AppCompatActivity {
                         throw new RuntimeException(e);
                     }
 
+                    //resetear los campos
+                    txtUsuario = "";
+                    txtContrasena = "";
 
+                } else {
+                    //Toast.makeText(Login.this, "Hay campos vacios.", Toast.LENGTH_SHORT).show();
 
-                //resetear los campos
-                txtUsuario = "";
-                txtContrasena = "";
-
-            } else {
-                //Toast.makeText(Login.this, "Hay campos vacios.", Toast.LENGTH_SHORT).show();
-
-            }
-        }).start();
+                }
+            }).start();
 
         });
-
-
     }
 
+    protected void sendEmail() {
+        Log.i("Send email", "");
+
+        String[] TO = {"ayla.hernandezca@elorrieta-errekamari.com"};
+        Intent emailIntent = new Intent(Intent.ACTION_SEND);
+        emailIntent.setData(Uri.parse("mailto:"));
+        emailIntent.setType("text/plain");
+
+        emailIntent.putExtra(Intent.EXTRA_EMAIL, TO);
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Asunto: contraseña nueva");
+        emailIntent.putExtra(Intent.EXTRA_TEXT, "Contraseña nueva: 123contraseña");
+
+        try {
+            startActivity(Intent.createChooser(emailIntent, "Send mail..."));
+            finish();
+            Log.i("Finished sending email...", "");
+        } catch (android.content.ActivityNotFoundException ex) {
+            Toast.makeText(Login.this,
+                    "There is no email client installed.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
+    //METODO CONECTAR CON EL SERVIDOR
     private void concectarConServidor() throws IOException, ClassNotFoundException {
         Cliente.getInstance();
         dos = Cliente.getInstance().getDataOutputStream();
