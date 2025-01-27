@@ -118,12 +118,14 @@ public class Login extends AppCompatActivity {
                                 runOnUiThread(() -> Toast.makeText(this, "login correcto." + String.valueOf(readIDUsuario), Toast.LENGTH_SHORT).show());
                                 Intent intentEstudiante = new Intent(Login.this, MenuEstudiante.class);
                                 intentEstudiante.putExtra("IDUserLog", readIDUsuario);
+                                intentEstudiante.putExtra("tipoUser", tipoUser);
                                 startActivity(intentEstudiante);
 
                             } else if ((tipoUser.equals("Profesor") && readTipoUsuario.equals("Profesor"))) {
                                 runOnUiThread(() -> Toast.makeText(this, "login correcto." + String.valueOf(readIDUsuario), Toast.LENGTH_SHORT).show());
                                 Intent intentProfesor = new Intent(Login.this, MenuProfesor.class);
                                 intentProfesor.putExtra("IDUserLog", readIDUsuario);
+                                intentProfesor.putExtra("tipoUser", tipoUser);
                                 startActivity(intentProfesor);
 
                             }

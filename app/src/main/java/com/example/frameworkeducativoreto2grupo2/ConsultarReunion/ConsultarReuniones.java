@@ -14,11 +14,25 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.frameworkeducativoreto2grupo2.Cliente.Cliente;
 import com.example.frameworkeducativoreto2grupo2.InterfazProfesor.InformacionReunion;
 import com.example.frameworkeducativoreto2grupo2.InterfazProfesor.MenuProfesor;
 import com.example.frameworkeducativoreto2grupo2.R;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+
 public class ConsultarReuniones extends AppCompatActivity {
+    private DataInputStream dis;
+    private DataOutputStream dos;
+    private ObjectInputStream ois;
+    private ObjectOutputStream oos;
+
+    int IDUserLog;
+    String tipoUserLogeado;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,17 +45,69 @@ public class ConsultarReuniones extends AppCompatActivity {
             return insets;
         });
 
+        //recoger el inten que ha comenzado este activity
+        Intent intent = getIntent();
+        //recoger los datos mandados con el intent
+        IDUserLog = intent.getIntExtra("IDUserLog", -1); //-1 --> valor por defecto si no encuentra el getIntExtra
+        tipoUserLogeado = intent.getStringExtra("tipoUser");
+
         //variables
         ImageButton btnAtras = findViewById(R.id.imageButtonAtrasME); //vuelve al menu de profesor
         TableLayout tablaReuniones = findViewById(R.id.tablaHorariosCR); //tabla
 
-        //rellenar la tabla ------------------------------------------------------------------------------- RELLENAR LA TABLA
-        //datos de las columnas y filas
-        String[] dias = {"", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes"};
-        String[] horas = {"Hora 1", "Hora 2", "Hora 3", "Hora 4", "Hora 5", "Hora 6"};
+        try {
+            oos = Cliente.getInstance().getObjectOutputStream();
+            ois = Cliente.getInstance().getObjectInputStream();
+            dos = Cliente.getInstance().getDataOutputStream();
+            dis = Cliente.getInstance().getDataInputStream();
 
-        //columnas
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        new Thread(() -> {
+            try {
+                //Opcion seleccionada 2 mostrarHorario
+                dos.writeInt(2);
+                dos.flush();
+
+                //mandar el id del usuario logeado
+                dos.writeInt(IDUserLog);
+                dos.flush();
+
+                //recoger horario
+                String[][] horarioUser = (String[][]) ois.readObject();
+
+                //actualizar la tabla con los datos obtenidos
+                runOnUiThread(() -> {
+                    //rellenar la tabla con los datos obtenidos horario + reuniones
+                    rellenarTabla(horarioUser);
+                });
+
+            } catch (IOException | ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+        }).start();
+
+        //listener boton atras ------------------------------------------------------------------------------- BOTON ATRAS
+        btnAtras.setOnClickListener(view -> {
+            Intent menuProfesor = new Intent(ConsultarReuniones.this, MenuProfesor.class);
+            menuProfesor.putExtra("IDUserLog", IDUserLog);
+            menuProfesor.putExtra("tipoUser", tipoUserLogeado);
+            startActivity(menuProfesor);
+        });
+    }
+
+    //METODO RELLENAR TABLA CON HORARIOS
+    private void rellenarTabla(String[][] horarioUser) {
+        //limpiar filas
+        TableLayout tablaHorarios = findViewById(R.id.tablaHorarios);
+        tablaHorarios.removeAllViews();
+
+        //header columnas dias
+        String[] dias = {"", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes"};
         TableRow headerRow = new TableRow(this);
+        //aadir cabecera de los días
         for (String dia : dias) {
             TextView headerCell = new TextView(this);
             headerCell.setText(dia);
@@ -52,13 +118,17 @@ public class ConsultarReuniones extends AppCompatActivity {
             headerCell.setBackgroundResource(R.drawable.table_cell_border);
             headerRow.addView(headerCell);
         }
-        tablaReuniones.addView(headerRow);
+        tablaHorarios.addView(headerRow);
 
-        //filas
-        for (String hora : horas) {
+        //header filas
+        String[] horas = {"Hora 1", "Hora 2", "Hora 3", "Hora 4", "Hora 5", "Hora 6"};
+
+        for (int i = 0; i < horas.length; i++) {
             TableRow row = new TableRow(this);
+
+            //columna hora
             TextView hourCell = new TextView(this);
-            hourCell.setText(hora);
+            hourCell.setText(horas[i]);
             hourCell.setTextSize(14);
             hourCell.setTextColor(getResources().getColor(R.color.black));
             hourCell.setGravity(Gravity.CENTER);
@@ -66,41 +136,22 @@ public class ConsultarReuniones extends AppCompatActivity {
             hourCell.setBackgroundResource(R.drawable.table_cell_border);
             row.addView(hourCell);
 
-            //añadir celdas vacias para cada dia
-            for (int i = 1; i < dias.length; i++) {
+            //rellenar las celdas de cada día con la clase correspondiente desde horarioUser
+            for (int j = 1; j < dias.length; j++) { //empieza desde 1 para saltar la columna de hora
                 TextView cell = new TextView(this);
-                cell.setText("");
+                String clase = horarioUser[i][j];
+                cell.setText(clase.isEmpty() ? "" : clase);  //si no hay clase mostrar vacío
                 cell.setTextSize(14);
                 cell.setTextColor(getResources().getColor(R.color.black));
                 cell.setGravity(Gravity.CENTER);
                 cell.setPadding(16, 16, 16, 16);
                 cell.setBackgroundResource(R.drawable.table_cell_border);
-
-                //*************primero mirar el tipo de user que es**************************
-                //si es profesor --> informacionReuion --- si es estudiante  --> informacionReunionEstudiante
-
-                //hacer clickables las celdas solo de reuniones
-                //mirar si la celda está vacia o si el texto contiene la palabra reunion
-                String textoCelda = cell.getText().toString().toLowerCase();
-                if (!cell.getText().toString().isEmpty() && (textoCelda.contains("reunión") || textoCelda.contains("reunion"))) {
-                    //se hace clickable
-                    cell.setClickable(true);
-                    cell.setOnClickListener(view -> {
-                        //listener al activity de informacion de reuniones
-                        Intent intent = new Intent(ConsultarReuniones.this, InformacionReunion.class);
-                        startActivity(intent);
-                    });
-                }
                 row.addView(cell);
             }
-            tablaReuniones.addView(row);
+
+            //añadir colores + onclicklisteners******************************
+
+            tablaHorarios.addView(row);
         }
-
-
-        //listener boton atras ------------------------------------------------------------------------------- BOTON ATRAS
-        btnAtras.setOnClickListener(view -> {
-            Intent menuProfesor = new Intent(ConsultarReuniones.this, MenuProfesor.class);
-            startActivity(menuProfesor);
-        });
     }
 }

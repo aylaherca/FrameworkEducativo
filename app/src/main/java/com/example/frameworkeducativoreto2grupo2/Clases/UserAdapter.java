@@ -20,10 +20,24 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
     //CLASE PARA PODER INSERTAR LOS DATOS EN EL RECYCLERVIEW
     private final List<Users> listaUSer;
     private final Context context;
+    private final OnUserClickListener onUserClickListener;
 
+    public interface OnUserClickListener {
+        void onUserClick(Users user);
+    }
+
+    //constructor con listener para DatosProfesores
+    public UserAdapter(Context context, List<Users> listaUSer, OnUserClickListener onUserClickListener) {
+        this.context = context;
+        this.listaUSer = listaUSer;
+        this.onUserClickListener = onUserClickListener;
+    }
+
+    //constructor sin listener para DatosEstudiantes
     public UserAdapter(Context context, List<Users> listaUSer) {
         this.context = context;
         this.listaUSer = listaUSer;
+        this.onUserClickListener = null;
     }
 
 
@@ -48,6 +62,12 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
                 .placeholder(R.drawable.placeholder) //sino: imagen placeholder
                 .error(R.drawable.error_image) //y si da error: imagen error
                 .into(holder.fotoPersona);
+
+        //onclick listener de cada elemento de la lista
+        //solo hacer si el listener no es null
+        if (onUserClickListener != null) {
+            holder.itemView.setOnClickListener(v -> onUserClickListener.onUserClick(user));
+        }
     }
 
     @Override

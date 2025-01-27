@@ -16,10 +16,10 @@
         android:layout_height="160dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.900"
+        app:layout_constraintHorizontal_bias="0.936"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.120"
+        app:layout_constraintVertical_bias="0.028"
         tools:srcCompat="@tools:sample/avatars" />
 
     <ImageButton
@@ -30,10 +30,10 @@
         android:contentDescription="@string/descBotonAtras"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.050"
+        app:layout_constraintHorizontal_bias="0.044"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.120"
+        app:layout_constraintVertical_bias="0.023"
         app:srcCompat="@drawable/baseline_arrow_back_24" />
 
     <TextView
@@ -196,9 +196,9 @@
         app:cornerRadius="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.93"
+        app:layout_constraintHorizontal_bias="0.969"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.320" />
+        app:layout_constraintVertical_bias="0.270" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

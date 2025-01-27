@@ -17,6 +17,9 @@ import com.example.frameworkeducativoreto2grupo2.R;
 
 public class MenuEstudiante extends AppCompatActivity {
 
+    int IDUserLog;
+    String tipoUserLogeado;
+
     private boolean subBtnVisible = false; //para checkear si los botones secundarios estan desplegados o no
 
     @Override
@@ -28,6 +31,12 @@ public class MenuEstudiante extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        //recoger el inten que ha comenzado este activity
+        Intent intent = getIntent();
+        //recoger los datos mandados con el intent
+        IDUserLog = intent.getIntExtra("IDUserLog", -1); //-1 --> valor por defecto si no encuentra el getIntExtra
+        tipoUserLogeado = intent.getStringExtra("tipoUser");
 
         //botones
         Button btnConsultarHorarios = findViewById(R.id.btnConsultarHorarios);
@@ -120,12 +129,15 @@ public class MenuEstudiante extends AppCompatActivity {
         //listener boton mis horarios ------------------------------------------------------------------------------- BOTON MIS HORARIOS
         btnHorariosPropios.setOnClickListener(view -> {
             Intent intentHorarioEstudiante = new Intent(MenuEstudiante.this, HorarioEstudiante.class);
+            intentHorarioEstudiante.putExtra("IDUserLog", IDUserLog);
             startActivity(intentHorarioEstudiante);
         });
 
         //listener boton horarios profesores ------------------------------------------------------------------------------- BOTON HORARIOS PROFESORES
         btnHorariosProfesores.setOnClickListener(view -> {
             Intent intentListaProfesores = new Intent(MenuEstudiante.this, DatosProfesores.class);
+            intentListaProfesores.putExtra("IDUserLog", IDUserLog);
+            intentListaProfesores.putExtra ("tipoUser", tipoUserLogeado);
             startActivity(intentListaProfesores);
         });
 

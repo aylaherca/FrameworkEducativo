@@ -94,20 +94,18 @@ public class HorariosProfesor extends AppCompatActivity {
             menuProfesor.putExtra("IDUserLog", IDUserLog);
             startActivity(menuProfesor);
         });
-
-
-
     }
 
+    //METODO RELLENAR TABLA CON HORARIOS
     private void rellenarTabla(String[][] horarioUser) {
         //limpiar filas
         TableLayout tablaHorarios = findViewById(R.id.tablaHorarios);
         tablaHorarios.removeAllViews();
 
-        //header columnas
+        //header columnas dias
         String[] dias = {"", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes"};
         TableRow headerRow = new TableRow(this);
-        //añadir cabeceras de los dias
+        //aadir cabecera de los días
         for (String dia : dias) {
             TextView headerCell = new TextView(this);
             headerCell.setText(dia);
@@ -122,6 +120,7 @@ public class HorariosProfesor extends AppCompatActivity {
 
         //header filas
         String[] horas = {"Hora 1", "Hora 2", "Hora 3", "Hora 4", "Hora 5", "Hora 6"};
+
         for (int i = 0; i < horas.length; i++) {
             TableRow row = new TableRow(this);
 
@@ -135,11 +134,11 @@ public class HorariosProfesor extends AppCompatActivity {
             hourCell.setBackgroundResource(R.drawable.table_cell_border);
             row.addView(hourCell);
 
-            //rellenar las celdas de cada dia desde los datos del array
-            for (int j = 1; j < dias.length; j++) { // 5 dias
+            //rellenar las celdas de cada día con la clase correspondiente desde horarioUser
+            for (int j = 1; j < dias.length; j++) { //empieza desde 1 para saltar la columna de hora
                 TextView cell = new TextView(this);
-                String clase = horarioUser[i][j-1];//el índice j-1 porque el primer elemento (vacío) es para el header
-                cell.setText(clase.isEmpty() ? "" : clase);
+                String clase = horarioUser[i][j];
+                cell.setText(clase.isEmpty() ? "" : clase);  //si no hay clase mostrar vacío
                 cell.setTextSize(14);
                 cell.setTextColor(getResources().getColor(R.color.black));
                 cell.setGravity(Gravity.CENTER);
@@ -148,27 +147,7 @@ public class HorariosProfesor extends AppCompatActivity {
                 row.addView(cell);
             }
             tablaHorarios.addView(row);
-
-            /*
-            FATAL EXCEPTION: main
-                                                                                                    Process: com.example.frameworkeducativoreto2grupo2, PID: 13323
-                                                                                                    java.lang.ArrayIndexOutOfBoundsException: length=5; index=5
-                                                                                                    	at com.example.frameworkeducativoreto2grupo2.InterfazProfesor.HorariosProfesor.rellenarTabla(HorariosProfesor.java:141)
-                                                                                                    	at com.example.frameworkeducativoreto2grupo2.InterfazProfesor.HorariosProfesor.lambda$onCreate$1$com-example-frameworkeducativoreto2grupo2-InterfazProfesor-HorariosProfesor(HorariosProfesor.java:83)
-                                                                                                    	at com.example.frameworkeducativoreto2grupo2.InterfazProfesor.HorariosProfesor$$ExternalSyntheticLambda3.run(D8$$SyntheticClass:0)
-                                                                                                    	at android.os.Handler.handleCallback(Handler.java:959)
-                                                                                                    	at android.os.Handler.dispatchMessage(Handler.java:100)
-                                                                                                    	at android.os.Looper.loopOnce(Looper.java:232)
-                                                                                                    	at android.os.Looper.loop(Looper.java:317)
-                                                                                                    	at android.app.ActivityThread.main(ActivityThread.java:8705)
-                                                                                                    	at java.lang.reflect.Method.invoke(Native Method)
-                                                                                                    	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:580)
-                                                                                                    	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:886)
-            * */
-
-
         }
     }
-
 
 }

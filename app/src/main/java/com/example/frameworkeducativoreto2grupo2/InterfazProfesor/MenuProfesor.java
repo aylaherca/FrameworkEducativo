@@ -22,6 +22,7 @@ public class MenuProfesor extends AppCompatActivity {
     private boolean subBtnVisible = false; //para checkear si los botones secundarios estan desplegados o no
 
     int IDUserLog;
+    String tipoUserLogeado;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +38,8 @@ public class MenuProfesor extends AppCompatActivity {
         //recoger el inten que ha comenzado este activity
         Intent intent = getIntent();
         //recoger los datos mandados con el intent
-        IDUserLog = intent.getIntExtra("IDUserLog", -1); //-1 --> valor por defecto si no encuentra el getExtra
+        IDUserLog = intent.getIntExtra("IDUserLog", -1); //-1 --> valor por defecto si no encuentra el getIntExtra
+        tipoUserLogeado = intent.getStringExtra("tipoUser");
 
 
         //botones
@@ -110,12 +112,15 @@ public class MenuProfesor extends AppCompatActivity {
         //listener boton crear reunion ------------------------------------------------------------------------------- BOTON CREAR REUNION
         btnCrearReunion.setOnClickListener(view -> {
             Intent intentCrearReunion = new Intent(MenuProfesor.this, CrearReunion.class);
+            intentCrearReunion.putExtra("IDUserLog", IDUserLog);
             startActivity(intentCrearReunion);
         });
 
         //listener boton consultar reuniones ------------------------------------------------------------------------------- BOTON CONSULTAR REUNIONES
         btnConsultarReuniones.setOnClickListener(view -> {
             Intent intentConsultarReuniones = new Intent(MenuProfesor.this, ConsultarReuniones.class);
+            intentConsultarReuniones.putExtra("IDUserLog", IDUserLog);
+            intentConsultarReuniones.putExtra("tipoUser", tipoUserLogeado);
             startActivity(intentConsultarReuniones);
         });
 

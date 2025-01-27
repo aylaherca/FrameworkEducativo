@@ -22,6 +22,9 @@ import java.util.List;
 
 public class DatosProfesores extends AppCompatActivity {
 
+    int IDUserLog;
+    String tipoUserLogeado;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +35,13 @@ public class DatosProfesores extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        //recoger el inten que ha comenzado este activity
+        Intent intent = getIntent();
+        //recoger los datos mandados con el intent
+        IDUserLog = intent.getIntExtra("IDUserLog", -1); //-1 --> valor por defecto si no encuentra el getIntExtra
+        tipoUserLogeado = intent.getStringExtra("tipoUser");
+
 
         //variables
         ImageButton btnAtras = findViewById(R.id.imageButtonAtrasME2);
@@ -73,14 +83,24 @@ public class DatosProfesores extends AppCompatActivity {
                 "https://studyportals.com/app/uploads/2024/11/shutterstock_2484576879-640x560.jpg"
         ));
 
-        //setear el adapter
-        UserAdapter adapter = new UserAdapter(this, listaUsers);
+        //setear el adapter y los clicks
+        UserAdapter adapter = new UserAdapter(this, listaUsers, new UserAdapter.OnUserClickListener() {
+            @Override
+            public void onUserClick(Users user) {
+                    Intent intentDatosProfesorHorario = new Intent(DatosProfesores.this, DatosProfesorHorario.class);
+                    intentDatosProfesorHorario.putExtra("IDUserLog", IDUserLog);
+                    intentDatosProfesorHorario.putExtra("tipoUser", IDUserLog);
+                    startActivity(intentDatosProfesorHorario);
+
+            }
+        });
         recyclerViewEstudiantes.setAdapter(adapter);
 
 
         //listener boton atras ------------------------------------------------------------------------------- BOTON ATRAS
         btnAtras.setOnClickListener(view -> {
             Intent menuEstudiante = new Intent(DatosProfesores.this, MenuEstudiante.class);
+            menuEstudiante.putExtra("IDUserLog", IDUserLog);
             startActivity(menuEstudiante);
         });
     }
