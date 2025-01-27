@@ -13,10 +13,8 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.frameworkeducativoreto2grupo2.Clases.User;
+import Modelo.Users;
 import com.example.frameworkeducativoreto2grupo2.Clases.UserAdapter;
-import com.example.frameworkeducativoreto2grupo2.InterfazProfesor.DatosEstudiantes;
-import com.example.frameworkeducativoreto2grupo2.InterfazProfesor.MenuProfesor;
 import com.example.frameworkeducativoreto2grupo2.R;
 
 import java.util.ArrayList;
@@ -44,8 +42,8 @@ public class DatosProfesores extends AppCompatActivity {
         recyclerViewEstudiantes.setLayoutManager(new LinearLayoutManager(this));
 
         //crear lista de user de prueba******************************************** BORRAR
-        List<User> listaUsers = new ArrayList<>();
-        listaUsers.add(new User(
+        List<Users> listaUsers = new ArrayList<>();
+        listaUsers.add(new Users(
                 1,
                 "irakasle1@irakasle.com",
                 "irakasle1",
@@ -60,7 +58,7 @@ public class DatosProfesores extends AppCompatActivity {
                 "https://www.fastweb.com/uploads/article_photo/photo/2036641/10-ways-to-be-a-better-student.jpeg"
         ));
 
-        listaUsers.add(new User(
+        listaUsers.add(new Users(
                 2,
                 "irakasle2@irakasle.com",
                 "irakasle2",

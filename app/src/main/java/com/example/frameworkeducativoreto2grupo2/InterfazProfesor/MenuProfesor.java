@@ -2,6 +2,7 @@ package com.example.frameworkeducativoreto2grupo2.InterfazProfesor;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -20,6 +21,7 @@ public class MenuProfesor extends AppCompatActivity {
 
     private boolean subBtnVisible = false; //para checkear si los botones secundarios estan desplegados o no
 
+    int IDUserLog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +33,12 @@ public class MenuProfesor extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        //recoger el inten que ha comenzado este activity
+        Intent intent = getIntent();
+        //recoger los datos mandados con el intent
+        IDUserLog = intent.getIntExtra("IDUserLog", -1); //-1 --> valor por defecto si no encuentra el getExtra
+
 
         //botones
         Button btnConsultarDatosEstudiantes = findViewById(R.id.btnConsultarDatosEstudiantes);
@@ -45,15 +53,6 @@ public class MenuProfesor extends AppCompatActivity {
         //esconder los botones secundarios
         btnCrearReunion.setVisibility(View.GONE);
         btnConsultarReuniones.setVisibility(View.GONE);
-
-
-        //listener boton horarios ------------------------------------------------------------------------------- BOTON CONSULTAR HORARIOS
-        btnConsultarHorarios.setOnClickListener(view -> {
-
-            Intent intentHorariosProfesor = new Intent(MenuProfesor.this, HorariosProfesor.class);
-            startActivity(intentHorariosProfesor);
-
-        });
 
         //listener boton reuniones ------------------------------------------------------------------------------- BOTON REUNIONES
         btnReuniones.setOnClickListener(view -> {
@@ -93,9 +92,18 @@ public class MenuProfesor extends AppCompatActivity {
 
         });
 
+        //listener boton horarios ------------------------------------------------------------------------------- BOTON CONSULTAR HORARIOS
+        btnConsultarHorarios.setOnClickListener(view -> {
+            Intent intentHorariosProfesor = new Intent(MenuProfesor.this, HorariosProfesor.class);
+            intentHorariosProfesor.putExtra("IDUserLog", IDUserLog);
+            startActivity(intentHorariosProfesor);
+
+        });
+
         //listener boton datos estudiantes ------------------------------------------------------------------------------- BOTON DATOS ESTUDIANTES
         btnConsultarDatosEstudiantes.setOnClickListener(view -> {
             Intent intentProfesorPerfil = new Intent(MenuProfesor.this, DatosEstudiantes.class);
+            intentProfesorPerfil.putExtra("IDUserLog", IDUserLog);
             startActivity(intentProfesorPerfil);
         });
 
@@ -115,6 +123,7 @@ public class MenuProfesor extends AppCompatActivity {
         //listener boton imagen perfil ------------------------------------------------------------------------------- BOTON IMAGEN PERFIL
         btnPerfil.setOnClickListener(view -> {
             Intent intentProfesorPerfil = new Intent(MenuProfesor.this, PerfilProfesor.class);
+            intentProfesorPerfil.putExtra("IDUserLog", IDUserLog);
             startActivity(intentProfesorPerfil);
         });
 

@@ -1,6 +1,10 @@
-package com.example.frameworkeducativoreto2grupo2.Clases;
+package Modelo;
 
-public class User {
+import java.io.Serializable;
+
+public class Users implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     private int id;
     private String email;
     private String username;
@@ -15,7 +19,11 @@ public class User {
     private String argazkia;
 
     //constructor
-    public User(int id, String email, String username, String password, String nombre, String apellidos, String dni, String direccion, Integer telefono1, Integer telefono2, String tipo, String argazkia) {
+    public Users() {
+
+    }
+
+    public Users(int id, String email, String username, String password, String nombre, String apellidos, String dni, String direccion, Integer telefono1, Integer telefono2, String tipo, String argazkia) {
         this.id = id;
         this.email = email;
         this.username = username;
@@ -29,6 +37,7 @@ public class User {
         this.tipo = tipo;
         this.argazkia = argazkia;
     }
+
 
     //getters y setters
     public int getId() {

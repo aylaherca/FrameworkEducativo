@@ -8,16 +8,18 @@
     android:background="@color/azulBlanco"
     tools:context=".InterfazProfesor.PerfilProfesor">
 
+    <!-- descripcion para que no de el error: No speakable text present -->
+
     <ImageView
         android:id="@+id/imageViewFotoPerfil"
         android:layout_width="160dp"
         android:layout_height="160dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.892"
+        app:layout_constraintHorizontal_bias="0.900"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.047"
+        app:layout_constraintVertical_bias="0.120"
         tools:srcCompat="@tools:sample/avatars" />
 
     <ImageButton
@@ -28,11 +30,11 @@
         android:contentDescription="@string/descBotonAtras"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.047"
+        app:layout_constraintHorizontal_bias="0.050"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.024"
-        app:srcCompat="@drawable/baseline_arrow_back_24" /><!-- descripcion para que no de el error: No speakable text present -->
+        app:layout_constraintVertical_bias="0.120"
+        app:srcCompat="@drawable/baseline_arrow_back_24" />
 
     <TextView
         android:id="@+id/txtDatosGenerales"
@@ -94,7 +96,7 @@
 
     <TextView
         android:id="@+id/txtDNI"
-        android:layout_width="27dp"
+        android:layout_width="35dp"
         android:layout_height="19dp"
         android:text="@string/txtDNI"
         android:textColor="@color/naranja"
@@ -141,7 +143,7 @@
         android:textColor="@color/azulNegro"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.373"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.574" />
@@ -187,16 +189,16 @@
 
     <Button
         android:id="@+id/btnCambiarFoto"
-        android:layout_width="160dp"
+        android:layout_width="180dp"
         android:layout_height="49dp"
         android:backgroundTint="@color/azulClaro"
         android:text="@string/txtCmabiarFoto"
         app:cornerRadius="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.892"
+        app:layout_constraintHorizontal_bias="0.93"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.285" />
+        app:layout_constraintVertical_bias="0.320" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

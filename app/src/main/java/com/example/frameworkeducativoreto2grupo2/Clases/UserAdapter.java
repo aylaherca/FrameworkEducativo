@@ -11,16 +11,17 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import Modelo.Users;
 import com.example.frameworkeducativoreto2grupo2.R;
 
 import java.util.List;
 
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder> {
     //CLASE PARA PODER INSERTAR LOS DATOS EN EL RECYCLERVIEW
-    private final List<User> listaUSer;
+    private final List<Users> listaUSer;
     private final Context context;
 
-    public UserAdapter(Context context, List<User> listaUSer) {
+    public UserAdapter(Context context, List<Users> listaUSer) {
         this.context = context;
         this.listaUSer = listaUSer;
     }
@@ -35,7 +36,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull UserViewHolder holder, int position) {
-        User user = listaUSer.get(position);
+        Users user = listaUSer.get(position);
 
         //info del usuario
         holder.nombrePersona.setText(user.getNombre());

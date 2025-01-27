@@ -30,6 +30,8 @@ public class Login extends AppCompatActivity {
 
     private DataInputStream dis;
     private DataOutputStream dos;
+    private int readIDUsuario;
+    private String readTipoUsuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,21 +110,26 @@ public class Login extends AppCompatActivity {
                         dos.flush();
 
                         boolean conexionCorrecta = dis.readBoolean();
+                        readIDUsuario = dis.readInt();
+                        readTipoUsuario = dis.readUTF();
                         if (conexionCorrecta) {
-                            if (tipoUser.equals("Alumno")) {
+                            //leemos el ID del usuario logueado para usarlo en la app
+                            if ((tipoUser.equals("Alumno") && readTipoUsuario.equals("Alumno"))) {
+                                runOnUiThread(() -> Toast.makeText(this, "login correcto." + String.valueOf(readIDUsuario), Toast.LENGTH_SHORT).show());
                                 Intent intentEstudiante = new Intent(Login.this, MenuEstudiante.class);
+                                intentEstudiante.putExtra("IDUserLog", readIDUsuario);
                                 startActivity(intentEstudiante);
 
-                            } else if (tipoUser.equals("Profesor")) {
+                            } else if ((tipoUser.equals("Profesor") && readTipoUsuario.equals("Profesor"))) {
+                                runOnUiThread(() -> Toast.makeText(this, "login correcto." + String.valueOf(readIDUsuario), Toast.LENGTH_SHORT).show());
                                 Intent intentProfesor = new Intent(Login.this, MenuProfesor.class);
+                                intentProfesor.putExtra("IDUserLog", readIDUsuario);
                                 startActivity(intentProfesor);
-                            }
-                            //Toast.makeText(Login.this, "login correcto.", Toast.LENGTH_SHORT).show();
 
+                            }
 
                         } else {
-                            //Toast.makeText(Login.this, "No existe el usuario", Toast.LENGTH_SHORT).show();
-
+                            runOnUiThread(() -> Toast.makeText(Login.this, "No existe el usuario" + String.valueOf(readIDUsuario), Toast.LENGTH_SHORT).show());
                         }
 
                     } catch (IOException e) {
@@ -130,14 +137,16 @@ public class Login extends AppCompatActivity {
                     }
 
                     //resetear los campos
+                    usuario.setText("");
+                    contrasena.setText("");
                     txtUsuario = "";
                     txtContrasena = "";
 
                 } else {
-                    //Toast.makeText(Login.this, "Hay campos vacios.", Toast.LENGTH_SHORT).show();
-
+                    runOnUiThread(() -> Toast.makeText(Login.this, "Hay campos vacios.", Toast.LENGTH_SHORT).show());
                 }
             }).start();
+
 
         });
     }
@@ -159,8 +168,7 @@ public class Login extends AppCompatActivity {
             finish();
             Log.i("Finished sending email...", "");
         } catch (android.content.ActivityNotFoundException ex) {
-            Toast.makeText(Login.this,
-                    "There is no email client installed.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(Login.this, "There is no email client installed.", Toast.LENGTH_SHORT).show();
         }
     }
 
