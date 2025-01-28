@@ -60,9 +60,6 @@ public class PerfilProfesor extends AppCompatActivity {
         //recoger los datos mandados con el intent
         int IDUserLog = intent.getIntExtra("IDUserLog", -1); //-1 --> valor por defecto si no encuentra el getExtra
 
-        runOnUiThread(() -> Toast.makeText(this, "El id sel user es " + String.valueOf(IDUserLog), Toast.LENGTH_SHORT).show());
-
-
         //variables
         ImageButton btnAtras = findViewById(R.id.imageButtonAtras);
         Button btnCambiarFoto = findViewById(R.id.btnCambiarFoto);
@@ -89,12 +86,12 @@ public class PerfilProfesor extends AppCompatActivity {
                     //leer el usuario
                     user = (Users) ois.readObject();
 
-                    //cambiar los campos de  los datos
-                    txtNombre.setText(user.getNombre());
-                    txtApellidos.setText(user.getApellidos());
-                    txtUsuario.setText(user.getUsername());
-                    txtEmail.setText(user.getEmail());
-                    txtDNI.setText(user.getDni());
+                    //comprobar si el dato esta vacio desde la bd y cambiar los campos
+                    txtNombre.setText(comprobarDatos(user.getNombre()));
+                    txtApellidos.setText(comprobarDatos(user.getApellidos()));
+                    txtUsuario.setText(comprobarDatos(user.getUsername()));
+                    txtEmail.setText(comprobarDatos(user.getEmail()));
+                    txtDNI.setText(comprobarDatos(user.getDni()));
 
                     //foto placeholder si la imagen es null/no tiene
                     if (user.getArgazkia() == null || user.getArgazkia().isEmpty()) {
@@ -126,4 +123,17 @@ public class PerfilProfesor extends AppCompatActivity {
             startActivity(menuProfesor);
         });
     }
+
+    //Metodo para comprobar los datos
+    //comprueba si el dato recogido es null o esta vacio y si es asi le setea un string por defecto (-)
+    private String comprobarDatos(String dato) {
+        if (dato == null || dato.isEmpty()) {
+            // Return "Dato no encontrado" if the data is null or empty
+            return getString(R.string.datoNoEncontrado);
+        } else {
+            // Return the original data if it's not null/empty
+            return dato;
+        }
+    }
+
 }

@@ -1,6 +1,7 @@
 package com.example.frameworkeducativoreto2grupo2.Clases;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +12,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+
 import Modelo.Users;
+
 import com.example.frameworkeducativoreto2grupo2.R;
 
 import java.util.List;
@@ -66,8 +69,12 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         //onclick listener de cada elemento de la lista
         //solo hacer si el listener no es null
         if (onUserClickListener != null) {
-            holder.itemView.setOnClickListener(v -> onUserClickListener.onUserClick(user));
+            holder.itemView.setOnClickListener(v -> {
+                Log.d("UserAdapter", "Profesor clikado: " + user.getNombre());
+                onUserClickListener.onUserClick(user);
+            });
         }
+
     }
 
     @Override
@@ -86,7 +93,6 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
             fotoPersona = itemView.findViewById(R.id.fotoPersona);
         }
     }
-
 
 
 }

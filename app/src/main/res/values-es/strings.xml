@@ -4,6 +4,7 @@
 
     <string name="descLogoElorrieta">Logo Elorrieta</string>
     <string name="descLogoGif">Logo Gif</string>
+    <string name="datoNoEncontrado"> - </string>
 
     <!-- Botones -->
     <string name="btnEntrar">Entrar</string>
@@ -13,7 +14,6 @@
     <string name="phContrasena">Contraseña</string>
     <string name="txtRecuperarContrasena"><u>¿Has olvidado tu contraseña?</u></string>
     <string name="btnLogin">Login</string>
-    <string name="toastRecuperarC">Por favor, revisa tu correo para recuperar la contraseña.</string>
     <string name="textoRecuperarC">Hola,\n\nTu nueva contraseña es: %1$s\n\nSaludos cordiales,\nel equipo ELorbase.</string> <!-- %1$s es un placeholder para la variable que hay que meter -->
 
 
@@ -94,4 +94,13 @@
     <string name="txtListaProfesores">Lista de profesores</string>
     <string name="txtNombreP">Nombre</string>
     <string name="txtApellidoP">Apellido</string>
+
+    <!-- Toast -->
+    <string name="toastRecuperarC">Por favor, revisa tu correo para recuperar la contraseña.</string>
+    <string name="toastLoginCorrecto">Login correcto</string>
+    <string name="toastNoExisteUser">No existe el usuario.</string>
+    <string name="toastCamposVacios">Hay campos vacíos.</string>
+
+
+
 </resources>

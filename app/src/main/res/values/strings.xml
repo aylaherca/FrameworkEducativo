@@ -3,6 +3,8 @@
 
     <string name="descLogoElorrieta">Logo Elorrieta</string>
     <string name="descLogoGif">Logo Gif</string>
+    <string name="datoNoEncontrado"> - </string>
+
 
     <!-- Botones -->
     <string name="btnEntrar">Sartu</string>
@@ -12,7 +14,6 @@
     <string name="phContrasena">Pasahitza</string>
     <string name="txtRecuperarContrasena"><u>Pasahitza ahaztu zaizu?</u></string>
     <string name="btnLogin">Saioa hasi</string>
-    <string name="toastRecuperarC">Zure posta elektronikoa begiratu pasahitza berreskuratzeko, mesedez.</string>
     <string name="textoRecuperarC">Kaixo,\n\nzure pasahitz berria %1$s da.\n\nAgur bero bat,\nELorbase taldea.</string> <!-- %1$s es un placeholder para la variable que hay que meter -->
 
 
@@ -38,8 +39,8 @@
     <string name="txtCmabiarFoto">Argazkia aldatu</string>
     <string name="descBotonAtras">Itzultzeko botoia</string>
     <string name="txtDatosGenerales">Datu orokorrak</string>
-    <string name="txtCIcloCursado">Bideraturiko zikloa:</string>
     <string name="txtDatosAcademicos">Datu akademikoak</string>
+    <string name="txtCIcloCursado">Bideraturiko zikloa:</string>
     <string name="txtNumCurso">Ikastaro-zenbakia:</string>
     <string name="txtModalidadDUAL">DUAL modalitatea:</string>
 
@@ -94,6 +95,13 @@
     <string name="txtListaProfesores">Irakasle zerrenda</string>
     <string name="txtNombreP">Izena</string>
     <string name="txtApellidoP">Abizena</string>
+
+    <!-- Toast -->
+    <string name="toastRecuperarC">Zure posta elektronikoa begiratu pasahitza berreskuratzeko, mesedez.</string>
+    <string name="toastLoginCorrecto">Login zuzena</string>
+    <string name="toastNoExisteUser">Ez da erabiltzailea aurkitu</string>
+    <string name="toastCamposVacios">Eremu hutsak daude</string>
+
 
 
 </resources>

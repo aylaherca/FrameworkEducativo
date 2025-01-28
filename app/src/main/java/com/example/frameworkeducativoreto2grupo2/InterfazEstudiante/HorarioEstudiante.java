@@ -32,6 +32,7 @@ public class HorarioEstudiante extends AppCompatActivity {
     private ObjectOutputStream oos;
 
     int IDUserLog;
+    String tipoUserLogeado;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +49,7 @@ public class HorarioEstudiante extends AppCompatActivity {
         Intent intent = getIntent();
         //recoger los datos mandados con el intent
         IDUserLog = intent.getIntExtra("IDUserLog", -1); //-1 --> valor por defecto si no encuentra el getIntExtra
+        tipoUserLogeado = intent.getStringExtra("tipoUser");
 
         //variables
         ImageButton btnAtras = findViewById(R.id.imageButtonAtrasME); //vuelve al menu de estudiante
@@ -91,6 +93,7 @@ public class HorarioEstudiante extends AppCompatActivity {
         btnAtras.setOnClickListener(view -> {
             Intent menuEstudiante = new Intent(HorarioEstudiante.this, MenuEstudiante.class);
             menuEstudiante.putExtra("IDUserLog", IDUserLog);
+            menuEstudiante.putExtra("tipoUser", tipoUserLogeado);
             startActivity(menuEstudiante);
         });
     }

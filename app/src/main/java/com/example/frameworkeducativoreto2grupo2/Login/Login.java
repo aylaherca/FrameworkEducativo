@@ -115,14 +115,14 @@ public class Login extends AppCompatActivity {
                         if (conexionCorrecta) {
                             //leemos el ID del usuario logueado para usarlo en la app
                             if ((tipoUser.equals("Alumno") && readTipoUsuario.equals("Alumno"))) {
-                                runOnUiThread(() -> Toast.makeText(this, "login correcto." + String.valueOf(readIDUsuario), Toast.LENGTH_SHORT).show());
+                                runOnUiThread(() -> Toast.makeText(this, getString(R.string.toastLoginCorrecto), Toast.LENGTH_SHORT).show());
                                 Intent intentEstudiante = new Intent(Login.this, MenuEstudiante.class);
                                 intentEstudiante.putExtra("IDUserLog", readIDUsuario);
                                 intentEstudiante.putExtra("tipoUser", tipoUser);
                                 startActivity(intentEstudiante);
 
                             } else if ((tipoUser.equals("Profesor") && readTipoUsuario.equals("Profesor"))) {
-                                runOnUiThread(() -> Toast.makeText(this, "login correcto." + String.valueOf(readIDUsuario), Toast.LENGTH_SHORT).show());
+                                runOnUiThread(() -> Toast.makeText(this, getString(R.string.toastLoginCorrecto), Toast.LENGTH_SHORT).show());
                                 Intent intentProfesor = new Intent(Login.this, MenuProfesor.class);
                                 intentProfesor.putExtra("IDUserLog", readIDUsuario);
                                 intentProfesor.putExtra("tipoUser", tipoUser);
@@ -131,7 +131,7 @@ public class Login extends AppCompatActivity {
                             }
 
                         } else {
-                            runOnUiThread(() -> Toast.makeText(Login.this, "No existe el usuario" + String.valueOf(readIDUsuario), Toast.LENGTH_SHORT).show());
+                            runOnUiThread(() -> Toast.makeText(Login.this, getString(R.string.toastNoExisteUser), Toast.LENGTH_SHORT).show());
                         }
 
                     } catch (IOException e) {
@@ -145,7 +145,7 @@ public class Login extends AppCompatActivity {
                     txtContrasena = "";
 
                 } else {
-                    runOnUiThread(() -> Toast.makeText(Login.this, "Hay campos vacios.", Toast.LENGTH_SHORT).show());
+                    runOnUiThread(() -> Toast.makeText(Login.this, getString(R.string.toastCamposVacios), Toast.LENGTH_SHORT).show());
                 }
             }).start();
 

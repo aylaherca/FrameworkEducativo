@@ -130,6 +130,7 @@ public class MenuEstudiante extends AppCompatActivity {
         btnHorariosPropios.setOnClickListener(view -> {
             Intent intentHorarioEstudiante = new Intent(MenuEstudiante.this, HorarioEstudiante.class);
             intentHorarioEstudiante.putExtra("IDUserLog", IDUserLog);
+            intentHorarioEstudiante.putExtra ("tipoUser", tipoUserLogeado);
             startActivity(intentHorarioEstudiante);
         });
 
@@ -157,6 +158,8 @@ public class MenuEstudiante extends AppCompatActivity {
         //listener boton imagen perfil ------------------------------------------------------------------------------- BOTON IMAGEN PERFIL
         btnPerfil.setOnClickListener(view -> {
             Intent intentEstudiantePerfil = new Intent(MenuEstudiante.this, PerfilEstudiante.class);
+            intentEstudiantePerfil.putExtra("IDUserLog", IDUserLog);
+            intentEstudiantePerfil.putExtra("tipoUser", tipoUserLogeado);
             startActivity(intentEstudiantePerfil);
         });
 

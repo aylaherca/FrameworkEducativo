@@ -2,6 +2,7 @@ package com.example.frameworkeducativoreto2grupo2.InterfazEstudiante;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 
@@ -15,12 +16,25 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import Modelo.Users;
 import com.example.frameworkeducativoreto2grupo2.Clases.UserAdapter;
+import com.example.frameworkeducativoreto2grupo2.Cliente.Cliente;
+import com.example.frameworkeducativoreto2grupo2.InterfazProfesor.DatosEstudiantes;
 import com.example.frameworkeducativoreto2grupo2.R;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 public class DatosProfesores extends AppCompatActivity {
+    private DataInputStream dis;
+    private DataOutputStream dos;
+    private ObjectInputStream ois;
+    private ObjectOutputStream oos;
+
+    private List<Users> listaUsers = new ArrayList<>();
 
     int IDUserLog;
     String tipoUserLogeado;
@@ -42,6 +56,15 @@ public class DatosProfesores extends AppCompatActivity {
         IDUserLog = intent.getIntExtra("IDUserLog", -1); //-1 --> valor por defecto si no encuentra el getIntExtra
         tipoUserLogeado = intent.getStringExtra("tipoUser");
 
+        try {
+            oos = Cliente.getInstance().getObjectOutputStream();
+            ois = Cliente.getInstance().getObjectInputStream();
+            dos = Cliente.getInstance().getDataOutputStream();
+            dis = Cliente.getInstance().getDataInputStream();
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         //variables
         ImageButton btnAtras = findViewById(R.id.imageButtonAtrasME2);
@@ -51,56 +74,51 @@ public class DatosProfesores extends AppCompatActivity {
 
         recyclerViewEstudiantes.setLayoutManager(new LinearLayoutManager(this));
 
-        //crear lista de user de prueba******************************************** BORRAR
-        List<Users> listaUsers = new ArrayList<>();
-        listaUsers.add(new Users(
-                1,
-                "irakasle1@irakasle.com",
-                "irakasle1",
-                "123",
-                "Nerea",
-                "Garcia",
-                "12345678A",
-                "c/ sabino arana",
-                123456789,
-                null,
-                "Profesor",
-                "https://www.fastweb.com/uploads/article_photo/photo/2036641/10-ways-to-be-a-better-student.jpeg"
-        ));
 
-        listaUsers.add(new Users(
-                2,
-                "irakasle2@irakasle.com",
-                "irakasle2",
-                "456",
-                "Jon",
-                "Garcia",
-                "87654321B",
-                "c/ bilbao",
-                987654321,
-                null,
-                "Profesor",
-                "https://studyportals.com/app/uploads/2024/11/shutterstock_2484576879-640x560.jpg"
-        ));
+        new Thread(() -> {
+            try {
+                //Opcion seleccionada 11 recoger profesores
+                dos.writeInt(11);
+                dos.flush();
+
+                //leer el List recibido
+                listaUsers = (List<Users>) ois.readObject();
+
+                //actualizamos la lista visual despues de obtener los datos
+                runOnUiThread(() -> {
+                    UserAdapter adapter = new UserAdapter(DatosProfesores.this, listaUsers, user -> {
+                        //Log.d("DatosProfesores", "Profesor clikado: " + user.getNombre());
+                        Intent intentDatosProfesorHorario = new Intent(DatosProfesores.this, DatosProfesorHorario.class);
+                        intentDatosProfesorHorario.putExtra("IDUserLog", IDUserLog);
+                        intentDatosProfesorHorario.putExtra("tipoUser", tipoUserLogeado); // Corrected
+                        intentDatosProfesorHorario.putExtra("IDProfesorSelec", user.getId());
+                        startActivity(intentDatosProfesorHorario);
+                    });
+                    recyclerViewEstudiantes.setAdapter(adapter);
+                });
+
+            } catch (IOException | ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+        }).start();
 
         //setear el adapter y los clicks
-        UserAdapter adapter = new UserAdapter(this, listaUsers, new UserAdapter.OnUserClickListener() {
-            @Override
-            public void onUserClick(Users user) {
-                    Intent intentDatosProfesorHorario = new Intent(DatosProfesores.this, DatosProfesorHorario.class);
-                    intentDatosProfesorHorario.putExtra("IDUserLog", IDUserLog);
-                    intentDatosProfesorHorario.putExtra("tipoUser", IDUserLog);
-                    startActivity(intentDatosProfesorHorario);
-
-            }
+        UserAdapter adapter = new UserAdapter(this, listaUsers, user -> {
+            Intent intentDatosProfesorHorario = new Intent(DatosProfesores.this, DatosProfesorHorario.class);
+            intentDatosProfesorHorario.putExtra("IDUserLog", IDUserLog);
+            intentDatosProfesorHorario.putExtra("tipoUser", tipoUserLogeado); // Corrected
+            intentDatosProfesorHorario.putExtra("IDProfesorSelec", user.getId());
+            startActivity(intentDatosProfesorHorario);
         });
-        recyclerViewEstudiantes.setAdapter(adapter);
+        runOnUiThread(() -> recyclerViewEstudiantes.setAdapter(adapter));
+
 
 
         //listener boton atras ------------------------------------------------------------------------------- BOTON ATRAS
         btnAtras.setOnClickListener(view -> {
             Intent menuEstudiante = new Intent(DatosProfesores.this, MenuEstudiante.class);
             menuEstudiante.putExtra("IDUserLog", IDUserLog);
+            menuEstudiante.putExtra("tipoUser", tipoUserLogeado);
             startActivity(menuEstudiante);
         });
     }
