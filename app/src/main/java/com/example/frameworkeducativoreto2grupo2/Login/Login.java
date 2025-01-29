@@ -44,9 +44,7 @@ public class Login extends AppCompatActivity {
 
             try {
                 concectarConServidor();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            } catch (ClassNotFoundException e) {
+            } catch (IOException | ClassNotFoundException e) {
                 throw new RuntimeException(e);
             }
         }).start();
@@ -54,7 +52,6 @@ public class Login extends AppCompatActivity {
 
         //variables
         Button btnLogin = findViewById(R.id.btnLogin);
-        Spinner spinnerTipoUser = findViewById(R.id.spinnerTipoUser);
         TextView textViewRecuperarContrasena = findViewById(R.id.textViewRecuperarContrasena);
         EditText usuario = findViewById(R.id.editTextUsuario);
         EditText contrasena = findViewById(R.id.editTextContrasena);
@@ -69,44 +66,27 @@ public class Login extends AppCompatActivity {
 
         });
 
-
-        //poner los valores al spinner
-        //arrayadapter usando los valores del enum para mostrar los nombres
-        ArrayAdapter<TipoUsuario> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, TipoUsuario.values());
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerTipoUser.setAdapter(adapter);
-
         //boton login
         btnLogin.setOnClickListener(view -> {
             new Thread(() -> {
                 String txtUsuario = String.valueOf(usuario.getText()).trim();
                 String txtContrasena = String.valueOf(contrasena.getText()).trim();
-                //recoger el tipo de usuario seleccionado del spinner, usar name() para obtener el string representante del enum seleccionado ("profesor" o "estudiante")
-                TipoUsuario tipoUsuarioSeleccionado = (TipoUsuario) spinnerTipoUser.getSelectedItem();
-                String tipoUser = tipoUsuarioSeleccionado != null ? tipoUsuarioSeleccionado.getTipoUser() : "";
 
                 //comprobar campos vacios en el login
                 if (metodos.comprobarLoginCamposVacios(txtUsuario, txtContrasena)) { //no hay campos vacios
 
-
-                    //llamamos al servidor para validar el login*****
-
-
+                    //llamamos al servidor para validar el login
                     try {
                         //Opcion seleccionada 1 Login
                         dos.writeInt(1);
                         dos.flush();
 
-                        //1º Campo nombre
+                        //campo nombre
                         dos.writeUTF(txtUsuario);
                         dos.flush();
 
-                        //contras
+                        //campo contraseña
                         dos.writeUTF(txtContrasena);
-                        dos.flush();
-
-                        //tipo user
-                        dos.writeUTF(tipoUser);
                         dos.flush();
 
                         boolean conexionCorrecta = dis.readBoolean();
@@ -114,26 +94,18 @@ public class Login extends AppCompatActivity {
                         readTipoUsuario = dis.readUTF();
                         if (conexionCorrecta) {
                             //leemos el ID del usuario logueado para usarlo en la app
-                            if ((tipoUser.equals("Alumno") && readTipoUsuario.equals("Alumno"))) {
-                                runOnUiThread(() -> Toast.makeText(this, getString(R.string.toastLoginCorrecto), Toast.LENGTH_SHORT).show());
+                            if ((readTipoUsuario.equals(TipoUsuario.ALUMNO.getTipoUser()))) {
                                 Intent intentEstudiante = new Intent(Login.this, MenuEstudiante.class);
-                                intentEstudiante.putExtra("IDUserLog", readIDUsuario);
-                                intentEstudiante.putExtra("tipoUser", tipoUser);
                                 startActivity(intentEstudiante);
 
-                            } else if ((tipoUser.equals("Profesor") && readTipoUsuario.equals("Profesor"))) {
-                                runOnUiThread(() -> Toast.makeText(this, getString(R.string.toastLoginCorrecto), Toast.LENGTH_SHORT).show());
+                            } else if (readTipoUsuario.equals(TipoUsuario.PROFESOR.getTipoUser())) {
                                 Intent intentProfesor = new Intent(Login.this, MenuProfesor.class);
-                                intentProfesor.putExtra("IDUserLog", readIDUsuario);
-                                intentProfesor.putExtra("tipoUser", tipoUser);
                                 startActivity(intentProfesor);
-
                             }
-
+                            runOnUiThread(() -> Toast.makeText(this, getString(R.string.toastLoginCorrecto), Toast.LENGTH_SHORT).show());
                         } else {
                             runOnUiThread(() -> Toast.makeText(Login.this, getString(R.string.toastNoExisteUser), Toast.LENGTH_SHORT).show());
                         }
-
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
@@ -141,8 +113,6 @@ public class Login extends AppCompatActivity {
                     //resetear los campos
                     usuario.setText("");
                     contrasena.setText("");
-                    txtUsuario = "";
-                    txtContrasena = "";
 
                 } else {
                     runOnUiThread(() -> Toast.makeText(Login.this, getString(R.string.toastCamposVacios), Toast.LENGTH_SHORT).show());

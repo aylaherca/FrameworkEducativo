@@ -29,7 +29,6 @@ public class DatosProfesorHorario extends AppCompatActivity {
     private ObjectInputStream ois;
     private ObjectOutputStream oos;
 
-    int IDUserLog;
     int IDProfesorSelec;
 
     @Override
@@ -45,13 +44,22 @@ public class DatosProfesorHorario extends AppCompatActivity {
 
         //recoger el inten que ha comenzado este activity
         Intent intent = getIntent();
-        //recoger los datos mandados con el intent
-        IDUserLog = intent.getIntExtra("IDUserLog", -1); //-1 --> valor por defecto si no encuentra el getExtra
         IDProfesorSelec = intent.getIntExtra("IDProfesorSelec", -1);
 
         //variables
         ImageButton btnAtras = findViewById(R.id.imageButtonAtrasME4); //vuelve al menu de estudiante
 
+        //cuando empieza el activity recogemos los datos del horario
+        recogerDatosHorario();
+
+        //listener boton atras ------------------------------------------------------------------------------- BOTON ATRAS
+        btnAtras.setOnClickListener(view -> {
+            Intent intentDatosProfesores = new Intent(DatosProfesorHorario.this, DatosProfesores.class);
+            startActivity(intentDatosProfesores);
+        });
+    }
+
+    private void recogerDatosHorario() {
         try {
             oos = Cliente.getInstance().getObjectOutputStream();
             ois = Cliente.getInstance().getObjectInputStream();
@@ -62,10 +70,9 @@ public class DatosProfesorHorario extends AppCompatActivity {
             throw new RuntimeException(e);
         }
 
-
         new Thread(() -> {
             try {
-                //Opcion seleccionada 2 mostrarHorario
+                //opcion seleccionada 2 mostrarHorario
                 dos.writeInt(2);
                 dos.flush();
 
@@ -86,14 +93,6 @@ public class DatosProfesorHorario extends AppCompatActivity {
                 throw new RuntimeException(e);
             }
         }).start();
-
-        //listener boton atras ------------------------------------------------------------------------------- BOTON ATRAS
-        btnAtras.setOnClickListener(view -> {
-            Intent menuEstudiante = new Intent(DatosProfesorHorario.this, DatosProfesores.class);
-            menuEstudiante.putExtra("IDUserLog", IDUserLog);
-            startActivity(menuEstudiante);
-        });
-
     }
 
     //METODO RELLENAR TABLA CON HORARIOS

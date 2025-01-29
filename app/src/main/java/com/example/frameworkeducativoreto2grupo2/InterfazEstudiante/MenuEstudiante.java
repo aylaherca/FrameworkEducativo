@@ -17,7 +17,6 @@ import com.example.frameworkeducativoreto2grupo2.R;
 
 public class MenuEstudiante extends AppCompatActivity {
 
-    int IDUserLog;
     String tipoUserLogeado;
 
     private boolean subBtnVisible = false; //para checkear si los botones secundarios estan desplegados o no
@@ -32,11 +31,6 @@ public class MenuEstudiante extends AppCompatActivity {
             return insets;
         });
 
-        //recoger el inten que ha comenzado este activity
-        Intent intent = getIntent();
-        //recoger los datos mandados con el intent
-        IDUserLog = intent.getIntExtra("IDUserLog", -1); //-1 --> valor por defecto si no encuentra el getIntExtra
-        tipoUserLogeado = intent.getStringExtra("tipoUser");
 
         //botones
         Button btnConsultarHorarios = findViewById(R.id.btnConsultarHorarios);
@@ -129,16 +123,12 @@ public class MenuEstudiante extends AppCompatActivity {
         //listener boton mis horarios ------------------------------------------------------------------------------- BOTON MIS HORARIOS
         btnHorariosPropios.setOnClickListener(view -> {
             Intent intentHorarioEstudiante = new Intent(MenuEstudiante.this, HorarioEstudiante.class);
-            intentHorarioEstudiante.putExtra("IDUserLog", IDUserLog);
-            intentHorarioEstudiante.putExtra ("tipoUser", tipoUserLogeado);
             startActivity(intentHorarioEstudiante);
         });
 
         //listener boton horarios profesores ------------------------------------------------------------------------------- BOTON HORARIOS PROFESORES
         btnHorariosProfesores.setOnClickListener(view -> {
             Intent intentListaProfesores = new Intent(MenuEstudiante.this, DatosProfesores.class);
-            intentListaProfesores.putExtra("IDUserLog", IDUserLog);
-            intentListaProfesores.putExtra ("tipoUser", tipoUserLogeado);
             startActivity(intentListaProfesores);
         });
 
@@ -158,14 +148,13 @@ public class MenuEstudiante extends AppCompatActivity {
         //listener boton imagen perfil ------------------------------------------------------------------------------- BOTON IMAGEN PERFIL
         btnPerfil.setOnClickListener(view -> {
             Intent intentEstudiantePerfil = new Intent(MenuEstudiante.this, PerfilEstudiante.class);
-            intentEstudiantePerfil.putExtra("IDUserLog", IDUserLog);
-            intentEstudiantePerfil.putExtra("tipoUser", tipoUserLogeado);
             startActivity(intentEstudiantePerfil);
         });
 
         //listener boton desconectar ------------------------------------------------------------------------------- BOTON DESCONECTAR
         btnDesconectar.setOnClickListener(view -> {
-            //desconectar + cerrar(?)/ir al login
+            //cerrar sesion
+            finish();
         });
 
 

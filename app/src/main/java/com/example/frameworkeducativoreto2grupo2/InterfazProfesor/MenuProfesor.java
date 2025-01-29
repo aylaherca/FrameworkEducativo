@@ -21,7 +21,6 @@ public class MenuProfesor extends AppCompatActivity {
 
     private boolean subBtnVisible = false; //para checkear si los botones secundarios estan desplegados o no
 
-    int IDUserLog;
     String tipoUserLogeado;
 
     @Override
@@ -34,13 +33,6 @@ public class MenuProfesor extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
-        //recoger el inten que ha comenzado este activity
-        Intent intent = getIntent();
-        //recoger los datos mandados con el intent
-        IDUserLog = intent.getIntExtra("IDUserLog", -1); //-1 --> valor por defecto si no encuentra el getIntExtra
-        tipoUserLogeado = intent.getStringExtra("tipoUser");
-
 
         //botones
         Button btnConsultarDatosEstudiantes = findViewById(R.id.btnConsultarDatosEstudiantes);
@@ -97,7 +89,6 @@ public class MenuProfesor extends AppCompatActivity {
         //listener boton horarios ------------------------------------------------------------------------------- BOTON CONSULTAR HORARIOS
         btnConsultarHorarios.setOnClickListener(view -> {
             Intent intentHorariosProfesor = new Intent(MenuProfesor.this, HorariosProfesor.class);
-            intentHorariosProfesor.putExtra("IDUserLog", IDUserLog);
             startActivity(intentHorariosProfesor);
 
         });
@@ -105,21 +96,18 @@ public class MenuProfesor extends AppCompatActivity {
         //listener boton datos estudiantes ------------------------------------------------------------------------------- BOTON DATOS ESTUDIANTES
         btnConsultarDatosEstudiantes.setOnClickListener(view -> {
             Intent intentProfesorPerfil = new Intent(MenuProfesor.this, DatosEstudiantes.class);
-            intentProfesorPerfil.putExtra("IDUserLog", IDUserLog);
             startActivity(intentProfesorPerfil);
         });
 
         //listener boton crear reunion ------------------------------------------------------------------------------- BOTON CREAR REUNION
         btnCrearReunion.setOnClickListener(view -> {
             Intent intentCrearReunion = new Intent(MenuProfesor.this, CrearReunion.class);
-            intentCrearReunion.putExtra("IDUserLog", IDUserLog);
             startActivity(intentCrearReunion);
         });
 
         //listener boton consultar reuniones ------------------------------------------------------------------------------- BOTON CONSULTAR REUNIONES
         btnConsultarReuniones.setOnClickListener(view -> {
             Intent intentConsultarReuniones = new Intent(MenuProfesor.this, ConsultarReuniones.class);
-            intentConsultarReuniones.putExtra("IDUserLog", IDUserLog);
             intentConsultarReuniones.putExtra("tipoUser", tipoUserLogeado);
             startActivity(intentConsultarReuniones);
         });
@@ -128,13 +116,13 @@ public class MenuProfesor extends AppCompatActivity {
         //listener boton imagen perfil ------------------------------------------------------------------------------- BOTON IMAGEN PERFIL
         btnPerfil.setOnClickListener(view -> {
             Intent intentProfesorPerfil = new Intent(MenuProfesor.this, PerfilProfesor.class);
-            intentProfesorPerfil.putExtra("IDUserLog", IDUserLog);
             startActivity(intentProfesorPerfil);
         });
 
         //listener boton desconectar ------------------------------------------------------------------------------- BOTON DESCONECTAR
         btnDesconectar.setOnClickListener(view -> {
-            //desconectar + cerrar(?)/ir al login
+            //cerrar sesion
+            finish();
         });
 
     }

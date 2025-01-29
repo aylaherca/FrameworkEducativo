@@ -55,11 +55,6 @@ public class PerfilProfesor extends AppCompatActivity {
             throw new RuntimeException(e);
         }
 
-        //recoger el inten que ha comenzado este activity
-        Intent intent = getIntent();
-        //recoger los datos mandados con el intent
-        int IDUserLog = intent.getIntExtra("IDUserLog", -1); //-1 --> valor por defecto si no encuentra el getExtra
-
         //variables
         ImageButton btnAtras = findViewById(R.id.imageButtonAtras);
         Button btnCambiarFoto = findViewById(R.id.btnCambiarFoto);
@@ -72,15 +67,10 @@ public class PerfilProfesor extends AppCompatActivity {
 
         ImageView imageViewFotoPerfil = findViewById(R.id.imageViewFotoPerfil);
 
-        if (IDUserLog != -1) {
             new Thread(() -> {
                 try {
                     //Opcion seleccionada 9 recoger datos
                     dos.writeInt(9);
-                    dos.flush();
-
-                    //mandamos el id del user
-                    dos.writeInt(IDUserLog);
                     dos.flush();
 
                     //leer el usuario
@@ -106,10 +96,6 @@ public class PerfilProfesor extends AppCompatActivity {
                     throw new RuntimeException(e);
                 }
             }).start();
-        } else {
-            //toast algo salio mal
-            runOnUiThread(() -> Toast.makeText(this, "Algo salió mal.", Toast.LENGTH_SHORT).show());
-        }
 
         //listener boton cambiar foto ------------------------------------------------------------------------------- BOTON CAMBIAR FOTO
         btnCambiarFoto.setOnClickListener(view -> {
@@ -119,7 +105,6 @@ public class PerfilProfesor extends AppCompatActivity {
         //listener boton atras ------------------------------------------------------------------------------- BOTON ATRAS
         btnAtras.setOnClickListener(view -> {
             Intent menuProfesor = new Intent(PerfilProfesor.this, MenuProfesor.class);
-            menuProfesor.putExtra("IDUserLog", IDUserLog);
             startActivity(menuProfesor);
         });
     }
@@ -128,10 +113,10 @@ public class PerfilProfesor extends AppCompatActivity {
     //comprueba si el dato recogido es null o esta vacio y si es asi le setea un string por defecto (-)
     private String comprobarDatos(String dato) {
         if (dato == null || dato.isEmpty()) {
-            // Return "Dato no encontrado" if the data is null or empty
+            //devuelve el string de dato no encontrado
             return getString(R.string.datoNoEncontrado);
         } else {
-            // Return the original data if it's not null/empty
+            //devuelve el dato de la bd
             return dato;
         }
     }

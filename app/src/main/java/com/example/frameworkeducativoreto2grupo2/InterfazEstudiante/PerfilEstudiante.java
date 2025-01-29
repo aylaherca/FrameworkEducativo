@@ -34,8 +34,6 @@ public class PerfilEstudiante extends AppCompatActivity {
     private ObjectOutputStream oos;
 
     Users user = new Users();
-    int IDUserLog;
-    String tipoUserLogeado;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,13 +56,6 @@ public class PerfilEstudiante extends AppCompatActivity {
             throw new RuntimeException(e);
         }
 
-        //recoger el inten que ha comenzado este activity
-        Intent intent = getIntent();
-        //recoger los datos mandados con el intent
-        IDUserLog = intent.getIntExtra("IDUserLog", -1); //-1 --> valor por defecto si no encuentra el getExtra
-        tipoUserLogeado = intent.getStringExtra("tipoUser");
-
-
         //variables
         ImageButton btnAtras = findViewById(R.id.imageButtonAtras);
         Button btnCambiarFoto = findViewById(R.id.btnCambiarFoto);
@@ -81,15 +72,10 @@ public class PerfilEstudiante extends AppCompatActivity {
 
         ImageView imageViewFotoPerfil = findViewById(R.id.imageViewFotoPerfil);
 
-        if (IDUserLog != -1) {
             new Thread(() -> {
                 try {
                     //Opcion seleccionada 9 recoger datos
                     dos.writeInt(9);
-                    dos.flush();
-
-                    //mandamos el id del user
-                    dos.writeInt(IDUserLog);
                     dos.flush();
 
                     //leer el usuario
@@ -115,10 +101,7 @@ public class PerfilEstudiante extends AppCompatActivity {
                     throw new RuntimeException(e);
                 }
             }).start();
-        } else {
-            //toast algo salio mal
-            runOnUiThread(() -> Toast.makeText(this, "Algo salió mal.", Toast.LENGTH_SHORT).show());
-        }
+
 
         //listener boton cambiar foto ------------------------------------------------------------------------------- BOTON CAMBIAR FOTO
         btnCambiarFoto.setOnClickListener(view -> {
@@ -128,8 +111,6 @@ public class PerfilEstudiante extends AppCompatActivity {
         //listener boton atras ------------------------------------------------------------------------------- BOTON ATRAS
         btnAtras.setOnClickListener(view -> {
             Intent menuEstudiante = new Intent(PerfilEstudiante.this, MenuEstudiante.class);
-            menuEstudiante.putExtra("IDUserLog", IDUserLog);
-            menuEstudiante.putExtra("tipoUser", tipoUserLogeado);
             startActivity(menuEstudiante);
         });
     }
@@ -138,10 +119,10 @@ public class PerfilEstudiante extends AppCompatActivity {
     //comprueba si el dato recogido es null o esta vacio y si es asi le setea un string por defecto (-)
     private String comprobarDatos(String dato) {
         if (dato == null || dato.isEmpty()) {
-            // Return "Dato no encontrado" if the data is null or empty
+            //devuelve el string de dato no encontrado
             return getString(R.string.datoNoEncontrado);
         } else {
-            // Return the original data if it's not null/empty
+            //devuelve el dato de la bd
             return dato;
         }
     }

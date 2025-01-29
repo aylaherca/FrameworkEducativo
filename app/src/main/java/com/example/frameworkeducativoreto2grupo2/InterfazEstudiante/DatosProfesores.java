@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -36,9 +37,6 @@ public class DatosProfesores extends AppCompatActivity {
 
     private List<Users> listaUsers = new ArrayList<>();
 
-    int IDUserLog;
-    String tipoUserLogeado;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,22 +48,6 @@ public class DatosProfesores extends AppCompatActivity {
             return insets;
         });
 
-        //recoger el inten que ha comenzado este activity
-        Intent intent = getIntent();
-        //recoger los datos mandados con el intent
-        IDUserLog = intent.getIntExtra("IDUserLog", -1); //-1 --> valor por defecto si no encuentra el getIntExtra
-        tipoUserLogeado = intent.getStringExtra("tipoUser");
-
-        try {
-            oos = Cliente.getInstance().getObjectOutputStream();
-            ois = Cliente.getInstance().getObjectInputStream();
-            dos = Cliente.getInstance().getDataOutputStream();
-            dis = Cliente.getInstance().getDataInputStream();
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
         //variables
         ImageButton btnAtras = findViewById(R.id.imageButtonAtrasME2);
         Spinner spinnerNombre = findViewById(R.id.spinnerNombre);
@@ -74,24 +56,27 @@ public class DatosProfesores extends AppCompatActivity {
 
         recyclerViewEstudiantes.setLayoutManager(new LinearLayoutManager(this));
 
-
         new Thread(() -> {
             try {
-                //Opcion seleccionada 11 recoger profesores
+                Cliente cliente = Cliente.getInstance();
+                oos = cliente.getObjectOutputStream();
+                ois = cliente.getObjectInputStream();
+                dos = cliente.getDataOutputStream();
+                dis = cliente.getDataInputStream();
+
+                //opcion seleccionada 11 obtener profesores
                 dos.writeInt(11);
                 dos.flush();
 
-                //leer el List recibido
+                //leemos la lista de profesores
                 listaUsers = (List<Users>) ois.readObject();
 
-                //actualizamos la lista visual despues de obtener los datos
+                //actualizamos el recycler
                 runOnUiThread(() -> {
                     UserAdapter adapter = new UserAdapter(DatosProfesores.this, listaUsers, user -> {
-                        //Log.d("DatosProfesores", "Profesor clikado: " + user.getNombre());
                         Intent intentDatosProfesorHorario = new Intent(DatosProfesores.this, DatosProfesorHorario.class);
-                        intentDatosProfesorHorario.putExtra("IDUserLog", IDUserLog);
-                        intentDatosProfesorHorario.putExtra("tipoUser", tipoUserLogeado); // Corrected
                         intentDatosProfesorHorario.putExtra("IDProfesorSelec", user.getId());
+                        Toast.makeText(this, "Profesor seleccionado: " + user.getId(), Toast.LENGTH_SHORT).show();
                         startActivity(intentDatosProfesorHorario);
                     });
                     recyclerViewEstudiantes.setAdapter(adapter);
@@ -102,23 +87,10 @@ public class DatosProfesores extends AppCompatActivity {
             }
         }).start();
 
-        //setear el adapter y los clicks
-        UserAdapter adapter = new UserAdapter(this, listaUsers, user -> {
-            Intent intentDatosProfesorHorario = new Intent(DatosProfesores.this, DatosProfesorHorario.class);
-            intentDatosProfesorHorario.putExtra("IDUserLog", IDUserLog);
-            intentDatosProfesorHorario.putExtra("tipoUser", tipoUserLogeado); // Corrected
-            intentDatosProfesorHorario.putExtra("IDProfesorSelec", user.getId());
-            startActivity(intentDatosProfesorHorario);
-        });
-        runOnUiThread(() -> recyclerViewEstudiantes.setAdapter(adapter));
-
-
 
         //listener boton atras ------------------------------------------------------------------------------- BOTON ATRAS
         btnAtras.setOnClickListener(view -> {
             Intent menuEstudiante = new Intent(DatosProfesores.this, MenuEstudiante.class);
-            menuEstudiante.putExtra("IDUserLog", IDUserLog);
-            menuEstudiante.putExtra("tipoUser", tipoUserLogeado);
             startActivity(menuEstudiante);
         });
     }
