@@ -94,6 +94,7 @@
     <string name="txtListaProfesores">Lista de profesores</string>
     <string name="txtNombreP">Nombre</string>
     <string name="txtApellidoP">Apellido</string>
+    <string name="btnRestablecerFiltros">Restablecer filtro</string>
 
     <!-- Toast -->
     <string name="toastRecuperarC">Por favor, revisa tu correo para recuperar la contraseña.</string>

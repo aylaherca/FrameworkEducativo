@@ -21,7 +21,7 @@ import java.util.List;
 
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder> {
     //CLASE PARA PODER INSERTAR LOS DATOS EN EL RECYCLERVIEW
-    private final List<Users> listaUSer;
+    private List<Users> listaUSer;
     private final Context context;
     private final OnUserClickListener onUserClickListener;
 
@@ -80,6 +80,12 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
     @Override
     public int getItemCount() {
         return listaUSer.size();
+    }
+
+    //metodo para actualizar la lista y el recyclerview
+    public void actualizarLista(List<Users> listaNueva) {
+        this.listaUSer = listaNueva;
+        notifyDataSetChanged(); //actualiza el recyclerview
     }
 
     public static class UserViewHolder extends RecyclerView.ViewHolder {

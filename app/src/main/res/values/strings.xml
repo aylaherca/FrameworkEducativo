@@ -16,8 +16,6 @@
     <string name="btnLogin">Saioa hasi</string>
     <string name="textoRecuperarC">Kaixo,\n\nzure pasahitz berria %1$s da.\n\nAgur bero bat,\nELorbase taldea.</string> <!-- %1$s es un placeholder para la variable que hay que meter -->
 
-
-
     <!-- Menu -->
     <string name="mensaje">Ongi etorri!</string>
     <string name="descBotonPerfil">Erabiltzaile-profilaren botoia</string>
@@ -95,6 +93,7 @@
     <string name="txtListaProfesores">Irakasle zerrenda</string>
     <string name="txtNombreP">Izena</string>
     <string name="txtApellidoP">Abizena</string>
+    <string name="btnRestablecerFiltros">Filtroa berrezarri</string>
 
     <!-- Toast -->
     <string name="toastRecuperarC">Zure posta elektronikoa begiratu pasahitza berreskuratzeko, mesedez.</string>

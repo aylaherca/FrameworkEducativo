@@ -2,6 +2,7 @@ package com.example.frameworkeducativoreto2grupo2.InterfazEstudiante;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.widget.ImageButton;
 import android.widget.TableLayout;
@@ -31,8 +32,7 @@ public class HorarioEstudiante extends AppCompatActivity {
     private ObjectInputStream ois;
     private ObjectOutputStream oos;
 
-    int IDUserLog;
-    String tipoUserLogeado;
+    TableLayout tablaHorarios;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,16 +45,21 @@ public class HorarioEstudiante extends AppCompatActivity {
             return insets;
         });
 
-        //recoger el inten que ha comenzado este activity
-        Intent intent = getIntent();
-        //recoger los datos mandados con el intent
-        IDUserLog = intent.getIntExtra("IDUserLog", -1); //-1 --> valor por defecto si no encuentra el getIntExtra
-        tipoUserLogeado = intent.getStringExtra("tipoUser");
-
         //variables
         ImageButton btnAtras = findViewById(R.id.imageButtonAtrasME); //vuelve al menu de estudiante
-        TableLayout tablaHorarios = findViewById(R.id.tablaHorariosEstudiante); //tabla
+        tablaHorarios = findViewById(R.id.tablaHorariosEstudiante); //tabla
 
+        //cuando empieza el activity recogemos los datos del horario
+        recogerDatosHorario();
+
+        //listener boton atras ------------------------------------------------------------------------------- BOTON ATRAS
+        btnAtras.setOnClickListener(view -> {
+            Intent menuEstudiante = new Intent(HorarioEstudiante.this, MenuEstudiante.class);
+            startActivity(menuEstudiante);
+        });
+    }
+
+    private void recogerDatosHorario() {
         try {
             oos = Cliente.getInstance().getObjectOutputStream();
             ois = Cliente.getInstance().getObjectInputStream();
@@ -66,18 +71,14 @@ public class HorarioEstudiante extends AppCompatActivity {
         }
 
         new Thread(() -> {
-            try {
-                //Opcion seleccionada 2 mostrarHorario
-                dos.writeInt(2);
-                dos.flush();
 
-                //mandar el id del usuario logeado
-                dos.writeInt(IDUserLog);
+            try {
+                //opcion seleccionada 13 mostrarHorarioAlumno
+                dos.writeInt(13);
                 dos.flush();
 
                 //recoger horario
                 String[][] horarioUser = (String[][]) ois.readObject();
-
                 //actualizar la tabla con los datos obtenidos
                 runOnUiThread(() -> {
                     //rellenar la tabla con los datos obtenidos
@@ -88,20 +89,12 @@ public class HorarioEstudiante extends AppCompatActivity {
                 throw new RuntimeException(e);
             }
         }).start();
-
-        //listener boton atras ------------------------------------------------------------------------------- BOTON ATRAS
-        btnAtras.setOnClickListener(view -> {
-            Intent menuEstudiante = new Intent(HorarioEstudiante.this, MenuEstudiante.class);
-            menuEstudiante.putExtra("IDUserLog", IDUserLog);
-            menuEstudiante.putExtra("tipoUser", tipoUserLogeado);
-            startActivity(menuEstudiante);
-        });
     }
 
     //METODO RELLENAR TABLA CON HORARIOS
     private void rellenarTabla(String[][] horarioUser) {
         //limpiar filas
-        TableLayout tablaHorarios = findViewById(R.id.tablaHorarios);
+        TableLayout tablaHorarios = findViewById(R.id.tablaHorariosEstudiante);
         tablaHorarios.removeAllViews();
 
         //header columnas dias
@@ -151,5 +144,4 @@ public class HorarioEstudiante extends AppCompatActivity {
             tablaHorarios.addView(row);
         }
     }
-
 }

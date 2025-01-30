@@ -84,7 +84,6 @@ public class HorariosProfesor extends AppCompatActivity {
 
                 //recoger horario
                 String[][] horarioUser = (String[][]) ois.readObject();
-                Log.d("HHHHHHH","ha entrado en horario");
                 //actualizar la tabla con los datos obtenidos
                 runOnUiThread(() -> {
                     //rellenar la tabla con los datos obtenidos

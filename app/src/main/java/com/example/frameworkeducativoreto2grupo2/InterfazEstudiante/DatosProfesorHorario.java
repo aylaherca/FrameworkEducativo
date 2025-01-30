@@ -72,8 +72,8 @@ public class DatosProfesorHorario extends AppCompatActivity {
 
         new Thread(() -> {
             try {
-                //opcion seleccionada 2 mostrarHorario
-                dos.writeInt(2);
+                //opcion seleccionada 12 mostrarHorarioProfesor
+                dos.writeInt(12);
                 dos.flush();
 
                 //mandar el id del profesor seleccionado
