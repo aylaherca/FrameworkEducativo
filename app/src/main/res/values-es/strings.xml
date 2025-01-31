@@ -65,9 +65,11 @@
     <string name="btnCrearNuevaReunion">Crear nueva reunión</string>
     <string name="phTitulo">Propósito de la reunión</string>
     <string name="phTema">Breve descripción de los asuntos a tratar</string>
-    <string name="txtNombreUsuario">Nombre del usuario solicitante</string>
+    <string name="txtNombreUsuario">Id del usuario solicitante</string>
     <string name="hintUbiacion">Escribe el nombre del Centro Educativo</string>
     <string name="hintAula">Aula para la reunión</string>
+    <string name="btnEscogerFecha">Escige fecha</string>
+    <string name="btnEscogerHora">Escoge hora</string>
 
     <!-- Informacion reunion -->
     <string name="txtInfoReunion">Información de la reunión</string>

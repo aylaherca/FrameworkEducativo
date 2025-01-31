@@ -12,7 +12,7 @@
     <!-- Login -->
     <string name="phUser">Erabiltzailea</string>
     <string name="phContrasena">Pasahitza</string>
-    <string name="txtRecuperarContrasena"><u>Pasahitza ahaztu zaizu?</u></string>
+    <string name="txtRecuperarContrasena"><u>Pasahitza ahaztu duzu?</u></string>
     <string name="btnLogin">Saioa hasi</string>
     <string name="textoRecuperarC">Kaixo,\n\nzure pasahitz berria %1$s da.\n\nAgur bero bat,\nELorbase taldea.</string> <!-- %1$s es un placeholder para la variable que hay que meter -->
 
@@ -64,9 +64,12 @@
     <string name="btnCrearNuevaReunion">Bilera berria sortu</string>
     <string name="phTitulo">Bileraren helburua</string>
     <string name="phTema">Aztertu beharreko gaien deskribapen laburra</string>
-    <string name="txtNombreUsuario">Erabiltzaile eskatzailearen izena</string>
+    <string name="txtNombreUsuario">Erabiltzaile eskatzailearen Id-a</string>
     <string name="hintUbiacion">Ikastetxearen izena idatzi</string>
     <string name="hintAula">Bilerarako ikasgela</string>
+    <string name="btnEscogerFecha">Data aukeratu</string>
+    <string name="btnEscogerHora">Hordua aukeratu</string>
+
 
     <!-- Informacion reunion -->
     <string name="txtInfoReunion">Bilerari buruzko informazioa</string>

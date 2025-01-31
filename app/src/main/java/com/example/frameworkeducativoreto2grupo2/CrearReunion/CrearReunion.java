@@ -1,7 +1,10 @@
 package com.example.frameworkeducativoreto2grupo2.CrearReunion;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.EditText;
@@ -30,8 +33,11 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 import Modelo.Users;
 
@@ -43,6 +49,7 @@ public class CrearReunion extends AppCompatActivity {
 
     Users user = new Users();
     private List<Users> listaUsers = new ArrayList<>();
+    private UserAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,55 +80,133 @@ public class CrearReunion extends AppCompatActivity {
 
         EditText txtTitulo = findViewById(R.id.editTextTitulo);
         EditText txtTema = findViewById(R.id.editTextTextMultiLineTema);
-        CalendarView diaReunion = findViewById(R.id.calendarView);
+        Button btnEscogerFecha = findViewById(R.id.btnEscogerFecha);
+        Button btnEscogerHora = findViewById(R.id.btnEscogerHora);
         TextView txtNombreUser = findViewById(R.id.txtNombreUser);
         Spinner spinnerUserReunion = findViewById(R.id.spinnerUser);
         EditText txtUbicacion = findViewById(R.id.editTextUbicacion);
         EditText txtAula = findViewById(R.id.editTextAula);
 
-        //setear el nombre del solicitante en el campo nombreuser*********************
-        txtNombreUser.setText(user.getNombre());
+        new Thread(() -> {
+            try {
+                //Opcion seleccionada 9 recoger datos
+                dos.writeInt(9);
+                dos.flush();
 
-        //setear en el spinner los profesores o alumnos, dependiendo del tipo de user
-        if (user.getTipo().equals(TipoUsuario.PROFESOR.getTipoUser())) { //si es un profesor --> lista de alumnos
-            //alumnos
-            new Thread(() -> {
-                try {
-                    //Opcion seleccionada 10 recoger alumnos
-                    dos.writeInt(10);
-                    dos.flush();
+                //leer el usuario
+                user = (Users) ois.readObject();
 
-                    //leer el List
-                    listaUsers = (List<Users>) ois.readObject();
+                //poner los datos necesarios
+                // setear el id del solicitante en el campo nombreuser
+                runOnUiThread(() -> txtNombreUser.setText(user.getNombre()));
 
-                    //actualizamos el spinner con alumnos***
+                // Setear en el spinner los profesores o alumnos, dependiendo del tipo de usuario
+                runOnUiThread(() -> {
+                    if (user.getTipo() != null && user.getTipo().equals(TipoUsuario.PROFESOR.getTipoUser())) {
+                        // Si es un profesor --> lista de alumnos
+                        new Thread(() -> {
+                            try {
+                                dos.writeInt(10);  // Recoger alumnos
+                                dos.flush();
+
+                                listaUsers = (List<Users>) ois.readObject();
+                                //actualizar el spinner con los alumnos
+                                runOnUiThread(() -> {
+                                    //creamos una lista que recoja los nombres
+                                    List<String> nombres = new ArrayList<>();
+                                    for (Users u : listaUsers) {
+                                        nombres.add(u.getNombre()); //nombres de los alumnos
+                                    }
+
+                                    //arrayadapter con la lista de los nombres
+                                    ArrayAdapter<String> adapter = new ArrayAdapter<>(CrearReunion.this, android.R.layout.simple_spinner_item, nombres);
+                                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+                                    //seteamos el adapter al spinner
+                                    spinnerUserReunion.setAdapter(adapter);
+                                });
 
 
-                } catch (IOException | ClassNotFoundException e) {
-                    throw new RuntimeException(e);
-                }
-            }).start();
-        } else { //si es un alumno --> lista de profesores
-            //profesores
-            new Thread(() -> {
-                try {
-                    //opcion seleccionada 11 obtener profesores
-                    dos.writeInt(11);
-                    dos.flush();
+                            } catch (IOException | ClassNotFoundException e) {
+                                e.printStackTrace();
+                            }
+                        }).start();
+                    } else {
+                        // Si es un alumno --> lista de profesores
+                        new Thread(() -> {
+                            try {
+                                dos.writeInt(11);  // Recoger profesores
+                                dos.flush();
 
-                    //leer el List
-                    listaUsers = (List<Users>) ois.readObject();
+                                listaUsers = (List<Users>) ois.readObject();
+                                //actualizar el spinner con los profesores
+                                runOnUiThread(() -> {
+                                    //creamos una lista que recoja los nombres
+                                    List<String> nombres = new ArrayList<>();
+                                    for (Users u : listaUsers) {
+                                        nombres.add(u.getNombre()); //nombres de los profesores
+                                    }
 
-                    //actualizamos el spinner con profesores***
+                                    //arrayadapter con la lista de los nombres
+                                    ArrayAdapter<String> adapter = new ArrayAdapter<>(CrearReunion.this, android.R.layout.simple_spinner_item, nombres);
+                                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+                                    //seteamos el adapter al spinner
+                                    spinnerUserReunion.setAdapter(adapter);
+                                });
 
 
-                } catch (IOException | ClassNotFoundException e) {
-                    throw new RuntimeException(e);
-                }
-            }).start();
-        }
+                            } catch (IOException | ClassNotFoundException e) {
+                                e.printStackTrace();
+                            }
+                        }).start();
+                    }
+                });
+
+
+            } catch (IOException | ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+        }).start();
 
         String userReunion = ""; //la persona con la que se quiere tener la reunion recogido del spinner
+
+        //calendario para guardar la fecha y hora escogida
+        Calendar fechaHoraEsc = Calendar.getInstance();
+
+        //fecha PICKER
+        btnEscogerFecha.setOnClickListener(v -> {
+            DatePickerDialog datePickerDialog = new DatePickerDialog(
+                    this,
+                    (view, year, month, dayOfMonth) -> {
+                        String selectedDate = dayOfMonth + "/" + (month + 1) + "/" + year;
+                        btnEscogerFecha.setText(selectedDate);
+                    },
+                    fechaHoraEsc.get(Calendar.YEAR),
+                    fechaHoraEsc.get(Calendar.MONTH),
+                    fechaHoraEsc.get(Calendar.DAY_OF_MONTH)
+            );
+            datePickerDialog.show();
+        });
+
+        //hora PICKER
+        btnEscogerHora.setOnClickListener(v -> {
+            TimePickerDialog timePickerDialog = new TimePickerDialog(
+                    this,
+                    (view, hourOfDay, minute) -> {
+                        String selectedTime = hourOfDay + ":" + (minute < 10 ? "0" + minute : minute);
+                        btnEscogerHora.setText(selectedTime);
+                    },
+                    fechaHoraEsc.get(Calendar.HOUR_OF_DAY),
+                    fechaHoraEsc.get(Calendar.MINUTE),
+                    true
+            );
+            timePickerDialog.show();
+        });
+
+        // Format Calendar date-time into MySQL DATETIME format
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        String fechaReunion = sdf.format(fechaHoraEsc.getTime()); //dato para enviar a la db
 
         //listener boton nueva reunion ------------------------------------------------------------------------------- BOTON CREAR NUEVA REUNION
         btnCrearNuevaReunion.setOnClickListener(view -> {
@@ -168,7 +253,6 @@ public class CrearReunion extends AppCompatActivity {
             Intent menuProfesor = new Intent(CrearReunion.this, MenuProfesor.class);
             startActivity(menuProfesor);
         });
-
 
 
     }

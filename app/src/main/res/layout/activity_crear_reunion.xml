@@ -80,11 +80,25 @@
             android:textStyle="bold"
             android:layout_marginBottom="8dp" />
 
-        <CalendarView
-            android:id="@+id/calendarView"
+        <Button
+            android:id="@+id/btnEscogerFecha"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp" />
+            android:layout_marginBottom="16dp"
+            android:backgroundTint="@color/azulMedio"
+            android:text="@string/btnEscogerFecha"
+            android:textColor="@color/azulBlanco"
+            app:cornerRadius="50dp" />
+
+        <Button
+            android:id="@+id/btnEscogerHora"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:backgroundTint="@color/azulMedio"
+            android:text="@string/btnEscogerHora"
+            android:textColor="@color/azulBlanco"
+            app:cornerRadius="50dp" />
 
         <TextView
             android:id="@+id/txtMiembrosReunion"
