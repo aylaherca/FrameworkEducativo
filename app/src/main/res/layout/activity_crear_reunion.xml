@@ -102,12 +102,12 @@
 
         <TextView
             android:id="@+id/txtMiembrosReunion"
-            android:layout_width="wrap_content"
+            android:layout_width="380dp"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
             android:text="@string/txtMiembrosReunion"
             android:textColor="@color/azulOscuro"
-            android:textStyle="bold"
-            android:layout_marginBottom="8dp" />
+            android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -140,13 +140,11 @@
             android:textStyle="bold"
             android:layout_marginBottom="8dp" />
 
-        <EditText
-            android:id="@+id/editTextUbicacion"
+        <Spinner
+            android:id="@+id/spinnerColegio"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:hint="@string/hintUbiacion"
-        android:inputType="text"
-        android:layout_marginBottom="16dp" />
+            android:layout_marginBottom="16dp" />
 
         <TextView
             android:id="@+id/txtAula"

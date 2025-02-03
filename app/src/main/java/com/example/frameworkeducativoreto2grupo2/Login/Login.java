@@ -81,6 +81,10 @@ public class Login extends AppCompatActivity {
                         dos.writeInt(1);
                         dos.flush();
 
+                        //string para el server saber que viene del movil (contraseña hash)
+                        dos.writeUTF("movil");
+                        dos.flush();
+
                         //campo nombre
                         dos.writeUTF(txtUsuario);
                         dos.flush();
