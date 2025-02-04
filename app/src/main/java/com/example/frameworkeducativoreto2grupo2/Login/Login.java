@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.frameworkeducativoreto2grupo2.Clases.MailSender;
 import com.example.frameworkeducativoreto2grupo2.Clases.TipoUsuario;
 import com.example.frameworkeducativoreto2grupo2.Cliente.Cliente;
 import com.example.frameworkeducativoreto2grupo2.InterfazEstudiante.MenuEstudiante;
@@ -32,6 +33,9 @@ public class Login extends AppCompatActivity {
     private DataOutputStream dos;
     private int readIDUsuario;
     private String readTipoUsuario;
+    private String emailTo;
+    private String txtUsuario;
+    private String txtContrasena;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,26 +62,57 @@ public class Login extends AppCompatActivity {
 
         //listener recuperar contraseña
         textViewRecuperarContrasena.setOnClickListener(view -> {
-            //query buscar email + mandar email + guardar en la bd la contraseña nueva hash*************************
+            new Thread(() -> {
+                txtUsuario = String.valueOf(usuario.getText()).trim();
 
-            sendEmail();
+                //comprobar el campo vacio del usuario
+                if (metodos.comprobarUserVacio(txtUsuario)) {
+                    //llamamos al servidor para validar el login
+                    try {
+                        //Opcion seleccionada 16 obtener contraseña usuario
+                        dos.writeInt(16);
+                        dos.flush();
 
-            Toast.makeText(Login.this, getString(R.string.toastRecuperarC), Toast.LENGTH_SHORT).show();
+                        //mandar el user
+                        dos.writeUTF(txtUsuario);
+                        dos.flush();
 
+                        //leer el email del user
+                        emailTo = dis.readUTF();
+
+                        if (emailTo != null) {
+                            String contrasenaNueva = Metodos.generarNuevaContraseña();
+
+                            //mandamos el email con la contraseña nueva y updateamos la bd
+                            mandarEmailRecContraseña(emailTo, contrasenaNueva);
+                        }
+
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+
+                } else {
+                    runOnUiThread(() -> Toast.makeText(Login.this, getString(R.string.toastCamposVacios), Toast.LENGTH_SHORT).show());
+                }
+
+
+            }).start();
         });
 
         //boton login
         btnLogin.setOnClickListener(view -> {
+
             new Thread(() -> {
-                String txtUsuario = String.valueOf(usuario.getText()).trim();
-                String txtContrasena = String.valueOf(contrasena.getText()).trim();
+
+                txtUsuario = String.valueOf(usuario.getText()).trim();
+                txtContrasena = String.valueOf(contrasena.getText()).trim();
 
                 //comprobar campos vacios en el login
                 if (metodos.comprobarLoginCamposVacios(txtUsuario, txtContrasena)) { //no hay campos vacios
 
                     //llamamos al servidor para validar el login
                     try {
-                        //Opcion seleccionada 1 Login
+                        //opcion seleccionada 1 Login
                         dos.writeInt(1);
                         dos.flush();
 
@@ -92,62 +127,80 @@ public class Login extends AppCompatActivity {
                         //campo contraseña
                         dos.writeUTF(txtContrasena);
                         dos.flush();
-
+                        Log.d("LOGIN", "boton clickado...");//*****************************************************************************
+                        //leer servidor
                         boolean conexionCorrecta = dis.readBoolean();
                         readIDUsuario = dis.readInt();
                         readTipoUsuario = dis.readUTF();
-                        if (conexionCorrecta) {
-                            //leemos el ID del usuario logueado para usarlo en la app
-                            if ((readTipoUsuario.equals(TipoUsuario.ALUMNO.getTipoUser()))) {
-                                Intent intentEstudiante = new Intent(Login.this, MenuEstudiante.class);
-                                startActivity(intentEstudiante);
 
-                            } else if (readTipoUsuario.equals(TipoUsuario.PROFESOR.getTipoUser())) {
-                                Intent intentProfesor = new Intent(Login.this, MenuProfesor.class);
-                                startActivity(intentProfesor);
-                            }
-                            runOnUiThread(() -> Toast.makeText(this, getString(R.string.toastLoginCorrecto), Toast.LENGTH_SHORT).show());
+                        if (conexionCorrecta) {
+                            runOnUiThread(() -> {
+                                Toast.makeText(Login.this, getString(R.string.toastLoginCorrecto), Toast.LENGTH_SHORT).show();
+                                // Iniciar la actividad en el UI thread
+                                if (readTipoUsuario.equals(TipoUsuario.ALUMNO.getTipoUser())) {
+                                    Log.d("LOGIN", "Iniciando actividad de estudiante...");
+                                    Intent intentEstudiante = new Intent(Login.this, MenuEstudiante.class);
+                                    startActivity(intentEstudiante);
+                                } else if (readTipoUsuario.equals(TipoUsuario.PROFESOR.getTipoUser())) {
+                                    Log.d("LOGIN", "Iniciando actividad de profesor...");
+                                    Intent intentProfesor = new Intent(Login.this, MenuProfesor.class);
+                                    startActivity(intentProfesor);
+                                }
+
+                                // Opcional: Cerrar la actividad de login si no quieres que vuelvan atrás
+                                finish();
+                            });
                         } else {
                             runOnUiThread(() -> Toast.makeText(Login.this, getString(R.string.toastNoExisteUser), Toast.LENGTH_SHORT).show());
                         }
                     } catch (IOException e) {
-                        throw new RuntimeException(e);
+                        Log.e("LOGIN", "Error en la conexión con el servidor", e);
+                        runOnUiThread(() -> Toast.makeText(Login.this, "Error en la conexión", Toast.LENGTH_SHORT).show());
                     }
 
-                    //resetear los campos
-                    usuario.setText("");
-                    contrasena.setText("");
+                    // Resetear los campos en el UI thread
+                    runOnUiThread(() -> {
+                        usuario.setText("");
+                        contrasena.setText("");
+                    });
 
                 } else {
                     runOnUiThread(() -> Toast.makeText(Login.this, getString(R.string.toastCamposVacios), Toast.LENGTH_SHORT).show());
                 }
             }).start();
-
-
         });
     }
 
-    protected void sendEmail() {
-        Log.i("Send email", "");
+    //METODO MANDAR EL EMAIL
+    protected void mandarEmailRecContraseña(String emailTo, String contrasenaNueva) {
+        new Thread(() -> {
+            try {
+                if (emailTo != null && !emailTo.isEmpty()) {
+                    MailSender.sendEmail(emailTo, contrasenaNueva);
 
-        String[] TO = {"ayla.hernandezca@elorrieta-errekamari.com"};
-        Intent emailIntent = new Intent(Intent.ACTION_SEND);
-        emailIntent.setData(Uri.parse("mailto:"));
-        emailIntent.setType("text/plain");
+                    //cuando se manda el email se cambia la contraseña en la base de datos
+                    //opcion seleccionada 17 update contraseña
+                    dos.writeInt(17);
+                    dos.flush();
 
-        emailIntent.putExtra(Intent.EXTRA_EMAIL, TO);
-        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Asunto: contraseña nueva");
-        emailIntent.putExtra(Intent.EXTRA_TEXT, "Contraseña nueva: 123contraseña");
+                    //email usuario
+                    dos.writeUTF(emailTo);
+                    dos.flush();
 
-        try {
-            startActivity(Intent.createChooser(emailIntent, "Send mail..."));
-            finish();
-            Log.i("Finished sending email...", "");
-        } catch (android.content.ActivityNotFoundException ex) {
-            Toast.makeText(Login.this, "There is no email client installed.", Toast.LENGTH_SHORT).show();
-        }
+                    //contraseña nueva
+                    dos.writeUTF(contrasenaNueva);
+                    dos.flush();
+
+                    runOnUiThread(() -> Toast.makeText(Login.this, getString(R.string.toastRecuperarC), Toast.LENGTH_SHORT).show());
+                } else {
+                    runOnUiThread(() -> Toast.makeText(Login.this, getString(R.string.toatsEmailNoEncontrado), Toast.LENGTH_SHORT).show());
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                runOnUiThread(() -> Toast.makeText(Login.this, getString(R.string.toastErrorMandarEmail), Toast.LENGTH_SHORT).show());
+            }
+        }).start();
     }
-
 
     //METODO CONECTAR CON EL SERVIDOR
     private void concectarConServidor() throws IOException, ClassNotFoundException {

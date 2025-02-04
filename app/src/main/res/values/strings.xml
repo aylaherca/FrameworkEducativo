@@ -15,6 +15,8 @@
     <string name="txtRecuperarContrasena"><u>Pasahitza ahaztu duzu?</u></string>
     <string name="btnLogin">Saioa hasi</string>
     <string name="textoRecuperarC">Kaixo,\n\nzure pasahitz berria %1$s da.\n\nAgur bero bat,\nELorbase taldea.</string> <!-- %1$s es un placeholder para la variable que hay que meter -->
+    <string name="toatsEmailNoEncontrado">Ez da email-a aurkitu</string>
+    <string name="toastErrorMandarEmail">Ezin izan da emaila bidali</string>
 
     <!-- Menu -->
     <string name="mensaje">Ongi etorri!</string>
