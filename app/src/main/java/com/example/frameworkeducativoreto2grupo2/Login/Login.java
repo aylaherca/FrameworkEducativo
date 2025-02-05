@@ -1,14 +1,10 @@
 package com.example.frameworkeducativoreto2grupo2.Login;
 
-
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,7 +21,6 @@ import com.example.frameworkeducativoreto2grupo2.R;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-
 
 public class Login extends AppCompatActivity {
 
@@ -44,15 +39,14 @@ public class Login extends AppCompatActivity {
 
         Metodos metodos = new Metodos();
 
+        //conectar con el servidor en un hilo separado
         new Thread(() -> {
-
             try {
                 concectarConServidor();
             } catch (IOException | ClassNotFoundException e) {
                 throw new RuntimeException(e);
             }
         }).start();
-
 
         //variables
         Button btnLogin = findViewById(R.id.btnLogin);
@@ -62,116 +56,134 @@ public class Login extends AppCompatActivity {
 
         //listener recuperar contraseña
         textViewRecuperarContrasena.setOnClickListener(view -> {
-            new Thread(() -> {
-                txtUsuario = String.valueOf(usuario.getText()).trim();
-
-                //comprobar el campo vacio del usuario
-                if (metodos.comprobarUserVacio(txtUsuario)) {
-                    //llamamos al servidor para validar el login
-                    try {
-                        //Opcion seleccionada 16 obtener contraseña usuario
-                        dos.writeInt(16);
-                        dos.flush();
-
-                        //mandar el user
-                        dos.writeUTF(txtUsuario);
-                        dos.flush();
-
-                        //leer el email del user
-                        emailTo = dis.readUTF();
-
-                        if (emailTo != null) {
-                            String contrasenaNueva = Metodos.generarNuevaContraseña();
-
-                            //mandamos el email con la contraseña nueva y updateamos la bd
-                            mandarEmailRecContraseña(emailTo, contrasenaNueva);
-                        }
-
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-
-                } else {
-                    runOnUiThread(() -> Toast.makeText(Login.this, getString(R.string.toastCamposVacios), Toast.LENGTH_SHORT).show());
-                }
-
-
-            }).start();
+            txtUsuario = usuario.getText().toString().trim();
+            recuperarContrasena(txtUsuario);
         });
 
         //boton login
         btnLogin.setOnClickListener(view -> {
-
-            new Thread(() -> {
-
-                txtUsuario = String.valueOf(usuario.getText()).trim();
-                txtContrasena = String.valueOf(contrasena.getText()).trim();
-
-                //comprobar campos vacios en el login
-                if (metodos.comprobarLoginCamposVacios(txtUsuario, txtContrasena)) { //no hay campos vacios
-
-                    //llamamos al servidor para validar el login
-                    try {
-                        //opcion seleccionada 1 Login
-                        dos.writeInt(1);
-                        dos.flush();
-
-                        //string para el server saber que viene del movil (contraseña hash)
-                        dos.writeUTF("movil");
-                        dos.flush();
-
-                        //campo nombre
-                        dos.writeUTF(txtUsuario);
-                        dos.flush();
-
-                        //campo contraseña
-                        dos.writeUTF(txtContrasena);
-                        dos.flush();
-                        Log.d("LOGIN", "boton clickado...");//*****************************************************************************
-                        //leer servidor
-                        boolean conexionCorrecta = dis.readBoolean();
-                        readIDUsuario = dis.readInt();
-                        readTipoUsuario = dis.readUTF();
-
-                        if (conexionCorrecta) {
-                            runOnUiThread(() -> {
-                                Toast.makeText(Login.this, getString(R.string.toastLoginCorrecto), Toast.LENGTH_SHORT).show();
-                                // Iniciar la actividad en el UI thread
-                                if (readTipoUsuario.equals(TipoUsuario.ALUMNO.getTipoUser())) {
-                                    Log.d("LOGIN", "Iniciando actividad de estudiante...");
-                                    Intent intentEstudiante = new Intent(Login.this, MenuEstudiante.class);
-                                    startActivity(intentEstudiante);
-                                } else if (readTipoUsuario.equals(TipoUsuario.PROFESOR.getTipoUser())) {
-                                    Log.d("LOGIN", "Iniciando actividad de profesor...");
-                                    Intent intentProfesor = new Intent(Login.this, MenuProfesor.class);
-                                    startActivity(intentProfesor);
-                                }
-
-                                // Opcional: Cerrar la actividad de login si no quieres que vuelvan atrás
-                                finish();
-                            });
-                        } else {
-                            runOnUiThread(() -> Toast.makeText(Login.this, getString(R.string.toastNoExisteUser), Toast.LENGTH_SHORT).show());
-                        }
-                    } catch (IOException e) {
-                        Log.e("LOGIN", "Error en la conexión con el servidor", e);
-                        runOnUiThread(() -> Toast.makeText(Login.this, "Error en la conexión", Toast.LENGTH_SHORT).show());
-                    }
-
-                    // Resetear los campos en el UI thread
-                    runOnUiThread(() -> {
-                        usuario.setText("");
-                        contrasena.setText("");
-                    });
-
-                } else {
-                    runOnUiThread(() -> Toast.makeText(Login.this, getString(R.string.toastCamposVacios), Toast.LENGTH_SHORT).show());
-                }
-            }).start();
+            txtUsuario = usuario.getText().toString().trim();
+            txtContrasena = contrasena.getText().toString().trim();
+            iniciarSesion(txtUsuario, txtContrasena);
         });
     }
 
-    //METODO MANDAR EL EMAIL
+    //metodo para conectar con el servidor
+    private void concectarConServidor() throws IOException, ClassNotFoundException {
+        Cliente.getInstance();
+        dos = Cliente.getInstance().getDataOutputStream();
+        dis = Cliente.getInstance().getDataInputStream();
+    }
+
+    //metodo para recuperar la contraseña
+    private void recuperarContrasena(String usuario) {
+        new Thread(() -> {
+            Metodos metodos = new Metodos();
+
+            //comprobar el campo vacio del usuario
+            if (metodos.comprobarUserVacio(usuario)) {
+                try {
+                    //opcion seleccionada 16 obtener contraseña usuario
+                    dos.writeInt(16);
+                    dos.flush();
+
+                    //mandar el user
+                    dos.writeUTF(usuario);
+                    dos.flush();
+
+                    //leer el email del usuario
+                    emailTo = dis.readUTF();
+
+                    if (emailTo != null) {
+                        String contrasenaNueva = Metodos.generarNuevaContraseña();
+
+                        //mandamos el email con la contraseña nueva y actualizamos la BD
+                        mandarEmailRecContraseña(emailTo, contrasenaNueva);
+                    }
+
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+
+            } else {
+                runOnUiThread(() -> Toast.makeText(Login.this, getString(R.string.toastCamposVacios), Toast.LENGTH_SHORT).show());
+            }
+        }).start();
+    }
+
+    //metodo para iniciar sesión
+    private void iniciarSesion(String usuario, String contrasena) {
+        new Thread(() -> {
+            Metodos metodos = new Metodos();
+
+            //comprobar campos vacíos en el login
+            if (metodos.comprobarLoginCamposVacios(usuario, contrasena)) { //no hay campos vacíos
+
+                try {
+                    //opcion seleccionada 1 Login
+                    dos.writeInt(1);
+                    dos.flush();
+
+                    //string para que el server sepa que viene del móvil (contraseña hash)
+                    dos.writeUTF("movil");
+                    dos.flush();
+
+                    //campo nombre
+                    dos.writeUTF(usuario);
+                    dos.flush();
+
+                    //campo contraseña
+                    dos.writeUTF(contrasena);
+                    dos.flush();
+
+
+                    //leer respuesta del servidor
+                    boolean conexionCorrecta = dis.readBoolean();
+                    readIDUsuario = dis.readInt();
+                    readTipoUsuario = dis.readUTF();
+
+                    if (conexionCorrecta) {
+                        runOnUiThread(() -> {
+                            Toast.makeText(Login.this, getString(R.string.toastLoginCorrecto), Toast.LENGTH_SHORT).show();
+                            abrirMenuUsuario();
+                        });
+                    } else {
+                        runOnUiThread(() -> Toast.makeText(Login.this, getString(R.string.toastNoExisteUser), Toast.LENGTH_SHORT).show());
+                    }
+
+                } catch (IOException e) {
+                    Log.e("LOGIN", "Error en la conexión con el servidor", e);
+                    runOnUiThread(() -> Toast.makeText(Login.this, "Error en la conexión", Toast.LENGTH_SHORT).show());
+                }
+
+                //resetear los campos en el UI thread
+                runOnUiThread(() -> {
+                    EditText usuarioField = findViewById(R.id.editTextUsuario);
+                    EditText contrasenaField = findViewById(R.id.editTextContrasena);
+                    usuarioField.setText("");
+                    contrasenaField.setText("");
+                });
+
+            } else {
+                runOnUiThread(() -> Toast.makeText(Login.this, getString(R.string.toastCamposVacios), Toast.LENGTH_SHORT).show());
+            }
+        }).start();
+    }
+
+    //metodo para abrir el menu del usuario
+    private void abrirMenuUsuario() {
+        runOnUiThread(() -> {
+            if (readTipoUsuario.equals(TipoUsuario.ALUMNO.getTipoUser())) {
+                Intent intentEstudiante = new Intent(Login.this, MenuEstudiante.class);
+                startActivity(intentEstudiante);
+            } else if (readTipoUsuario.equals(TipoUsuario.PROFESOR.getTipoUser())) {
+                Intent intentProfesor = new Intent(Login.this, MenuProfesor.class);
+                startActivity(intentProfesor);
+            }
+        });
+    }
+
+    //metodo para mandar el email de recuperación de contraseña
     protected void mandarEmailRecContraseña(String emailTo, String contrasenaNueva) {
         new Thread(() -> {
             try {
@@ -201,14 +213,4 @@ public class Login extends AppCompatActivity {
             }
         }).start();
     }
-
-    //METODO CONECTAR CON EL SERVIDOR
-    private void concectarConServidor() throws IOException, ClassNotFoundException {
-        Cliente.getInstance();
-        dos = Cliente.getInstance().getDataOutputStream();
-        dis = Cliente.getInstance().getDataInputStream();
-
-    }
-
-
 }

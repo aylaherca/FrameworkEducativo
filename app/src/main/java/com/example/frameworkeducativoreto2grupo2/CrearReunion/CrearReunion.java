@@ -38,8 +38,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 import Modelo.Colegio;
 import Modelo.Reuniones;
@@ -55,11 +53,9 @@ public class CrearReunion extends AppCompatActivity {
     private Colegio colegio = new Colegio();
     private List<Colegio> listaColegios = new ArrayList<>();
     private List<Users> listaUsers = new ArrayList<>();
+    private List<String[]> listaUsersSpinner = new ArrayList<>();
     private int IDUserReunion;
     private int IDColegio;
-
-    //ExecutorService para hilos en segundo plano
-    private ExecutorService executorService = Executors.newFixedThreadPool(4); //4 hilos
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,14 +90,14 @@ public class CrearReunion extends AppCompatActivity {
         Spinner spinnerColegio = findViewById(R.id.spinnerColegio);
         EditText txtAula = findViewById(R.id.editTextAula);
 
-        //hilos refcoger datos
-        executorService.submit(() -> {
+        //hilos recoger datos
+        new Thread(() -> {
             //primero recoge datos de usuario
             recogerDatosUser(txtNombreUser, spinnerUserReunion);
 
             //cuando el anterior termine, recoge datos de los colegios
             recogerDatosColegios(spinnerColegio);
-        });
+        }).start();
 
         //setear fecha y hora picker
         ponerDateTimePickers(btnEscogerFecha, btnEscogerHora);
@@ -126,7 +122,7 @@ public class CrearReunion extends AppCompatActivity {
             nuevaReunion.setFecha(obtenerFechayHora());
 
             //mandar los datos de la reunion al servidor
-            executorService.submit(() -> enviarDatosReunion(nuevaReunion));
+            new Thread(() -> enviarDatosReunion(nuevaReunion)).start();
         });
 
         //listener boton atras ------------------------------------------------------------------------------- BOTON ATRAS
@@ -141,16 +137,14 @@ public class CrearReunion extends AppCompatActivity {
         });
     }
 
-    //obtener datos en hilos secundarios
+    //obtener datos
     //user
     private void recogerDatosUser(TextView txtNombreUser, Spinner spinnerUserReunion) {
         try {
-            //opcion seleccionada 9 recoger datos user
-            int accion = 9;
+            //opcion seleccionada 18 recoger datos user
+            int accion = 18;
             dos.writeInt(accion);
             dos.flush();
-
-            Log.d("ACCIONNNNNNNNNNNNNN", "accion: " + accion);
 
             //leer el usuario
             //Users userLog = (Users) ois.readObject();
@@ -158,8 +152,6 @@ public class CrearReunion extends AppCompatActivity {
             //leer datos
             int ID = dis.readInt();
             String tipoUserLog = dis.readUTF();
-
-            Log.d("ACCIONNNNNNNNNNNNNN", String.valueOf(ID));
 
             runOnUiThread(() -> {
                 //setear el id del solicitante en el campo nombreuser
@@ -186,7 +178,6 @@ public class CrearReunion extends AppCompatActivity {
             dos.flush();
 
             Log.d("ACCIONNNNNNNNNNNNNN", "accion: " + accion);
-
 
             //lista colegios
             listaColegios = (List<Colegio>) ois.readObject();
@@ -285,13 +276,12 @@ public class CrearReunion extends AppCompatActivity {
 
             Log.d("ACCIONNNNNNNNNNNNNN", "accion: " + accion);
 
-
             synchronized (oos) { //para que no salte error
                 //enviar objeto reunion
                 oos.writeObject(nuevaReunion);
                 oos.flush();
             }
-            runOnUiThread(() -> Toast.makeText(this, "rEUNION CREADA", Toast.LENGTH_SHORT).show());
+            runOnUiThread(() -> Toast.makeText(this, "REUNION CREADA", Toast.LENGTH_SHORT).show());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -299,63 +289,88 @@ public class CrearReunion extends AppCompatActivity {
 
     //lista de alumnos
     private void obtenerAlumnosParaProfesores(Spinner spinnerUserReunion) {
-        executorService.submit(() -> {
+        new Thread(() -> {
             try {
-                //opcion seleccionada 10 recoger datos alumnos
-                int accion = 10;
+                //opcion seleccionada 20 recoger datos alumnos
+                int accion = 20;
                 dos.writeInt(accion);
                 dos.flush();
 
-                Log.d("ACCIONNNNNNNNNNNNNN", "accion: " + accion);
-
-
-                listaUsers = (List<Users>) ois.readObject();
-                runOnUiThread(() -> actualizarSpinner(spinnerUserReunion));
+                //lista de alumnos
+                listaUsersSpinner = (List<String[]>) ois.readObject();
+                runOnUiThread(() -> {
+                    if (listaUsersSpinner != null && !listaUsersSpinner.isEmpty()) {
+                        actualizarSpinner(spinnerUserReunion, listaUsersSpinner);
+                    } else {
+                        Log.d("ERROR", "Lista de usuarios está vacía.");
+                    }
+                });
             } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();
             }
-        });
+        }).start();
     }
 
-    //lista de profesoresS
+    //lista de profesores
     private void obtenerProfesoresParaAlumnos(Spinner spinnerUserReunion) {
-        executorService.submit(() -> {
+        new Thread(() -> {
             try {
-                //opcion seleccionada 11 recoger datos profesores
-                int accion = 11;
+                //opcion seleccionada 19 recoger datos profesores
+                int accion = 19;
                 dos.writeInt(accion);
                 dos.flush();
 
-                Log.d("ACCIONNNNNNNNNNNNNN", "accion: " + accion);
-
-
-                listaUsers = (List<Users>) ois.readObject();
-                runOnUiThread(() -> actualizarSpinner(spinnerUserReunion));
+                Log.d("LISTAAAAAAAAAAAAA", "Lista de usuarios recibida1: " + listaUsersSpinner.size());
+                //lista de profesores
+                listaUsersSpinner = (List<String[]>) ois.readObject();
+                Log.d("LISTAAAAAAAAAAAAA", "Lista de usuarios recibida2length: " + listaUsersSpinner.size());
+                runOnUiThread(() -> {
+                    if (listaUsersSpinner != null && !listaUsersSpinner.isEmpty()) {
+                        actualizarSpinner(spinnerUserReunion, listaUsersSpinner);
+                    } else {
+                        Log.d("ERROR", "Lista de usuarios está vacía.");
+                    }
+                });
+                Log.d("LISTAAAAAAAAAAAAA", "Lista de usuarios recibida2: " + listaUsersSpinner.size());
             } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();
             }
-        });
+        }).start();
     }
 
     //actualizar el spinner
-    private void actualizarSpinner(Spinner spinnerUserReunion) {
-        List<String> nombres = new ArrayList<>();
-        for (Users u : listaUsers) {
-            nombres.add(u.getNombre());
+    private void actualizarSpinner(Spinner spinnerUserReunion, List<String[]> listaUsersSpinner) {
+        List<String> nombresApellidos = new ArrayList<>();
+
+        //combinamos nombre y apellido para cada usuario
+        Log.d("LISTAAAAAAAAAAAAA", "Lista de usuarios recibida3: " + listaUsersSpinner.size());
+        for (String[] userInfo : listaUsersSpinner) {
+            //concatenar nombre y apellido desde el String[] (userInfo)
+            String nombreCompleto = userInfo[1] + " " + userInfo[2]; // [1] = Name, [2] = Surname
+            Log.d("LISTAAAAAAAAAAAAA", "Nombre completo4: " + nombreCompleto); // Log the name
+            nombresApellidos.add(nombreCompleto);
         }
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(CrearReunion.this, android.R.layout.simple_spinner_item, nombres);
+
+        //arrayAdapter con el arraylist de nombre y apellido
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(CrearReunion.this, android.R.layout.simple_spinner_item, nombresApellidos);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        //setear el adapter al spinner
         spinnerUserReunion.setAdapter(adapter);
+
+        //listener para el spinner
         spinnerUserReunion.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                IDUserReunion = listaUsers.get(position).getId();
+                //obtener el ID del usuario seleccionado (desde listaUsersSpinner)
+                IDUserReunion = Integer.parseInt(listaUsersSpinner.get(position)[0]); //ID
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                IDUserReunion = -1;
+                IDUserReunion = -1;  //si no se ha seleccionado nada
             }
         });
     }
+
 }
