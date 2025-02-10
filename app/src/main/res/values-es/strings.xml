@@ -45,6 +45,9 @@
     <string name="txtDatosAcademicos">Datos académicos</string>
     <string name="txtNumCurso">Nº de curso:</string>
     <string name="txtModalidadDUAL">Modalidad DUAL:</string>
+    <string name="switchIdiomaEUS">Euskera</string>
+    <string name="switchIdiomaES">Gaztelania</string>
+
 
     <!-- Horarios profesor -->
     <string name="txtHorarios">Horarios</string>

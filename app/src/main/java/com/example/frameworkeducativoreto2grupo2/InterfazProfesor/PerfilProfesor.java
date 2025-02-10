@@ -67,35 +67,35 @@ public class PerfilProfesor extends AppCompatActivity {
 
         ImageView imageViewFotoPerfil = findViewById(R.id.imageViewFotoPerfil);
 
-            new Thread(() -> {
-                try {
-                    //Opcion seleccionada 9 recoger datos
-                    dos.writeInt(9);
-                    dos.flush();
+        new Thread(() -> {
+            try {
+                //Opcion seleccionada 9 recoger datos
+                dos.writeInt(9);
+                dos.flush();
 
-                    //leer el usuario
-                    user = (Users) ois.readObject();
+                //leer el usuario
+                user = (Users) ois.readObject();
 
-                    //comprobar si el dato esta vacio desde la bd y cambiar los campos
-                    txtNombre.setText(comprobarDatos(user.getNombre()));
-                    txtApellidos.setText(comprobarDatos(user.getApellidos()));
-                    txtUsuario.setText(comprobarDatos(user.getUsername()));
-                    txtEmail.setText(comprobarDatos(user.getEmail()));
-                    txtDNI.setText(comprobarDatos(user.getDni()));
+                //comprobar si el dato esta vacio desde la bd y cambiar los campos
+                txtNombre.setText(comprobarDatos(user.getNombre()));
+                txtApellidos.setText(comprobarDatos(user.getApellidos()));
+                txtUsuario.setText(comprobarDatos(user.getUsername()));
+                txtEmail.setText(comprobarDatos(user.getEmail()));
+                txtDNI.setText(comprobarDatos(user.getDni()));
 
-                    //foto placeholder si la imagen es null/no tiene
-                    if (user.getArgazkia() == null || user.getArgazkia().isEmpty()) {
-                        imageViewFotoPerfil.setImageResource(R.drawable.placeholder);
-                    } else { //ponemos la foto de la db
-                        Glide.with(PerfilProfesor.this)
-                                .load(user.getArgazkia())
-                                .into(imageViewFotoPerfil);
-                    }
-
-                } catch (IOException | ClassNotFoundException e) {
-                    throw new RuntimeException(e);
+                //foto placeholder si la imagen es null/no tiene
+                if (user.getArgazkia() == null || user.getArgazkia().isEmpty()) {
+                    imageViewFotoPerfil.setImageResource(R.drawable.placeholder);
+                } else { //ponemos la foto de la db
+                    Glide.with(PerfilProfesor.this)
+                            .load(user.getArgazkia())
+                            .into(imageViewFotoPerfil);
                 }
-            }).start();
+
+            } catch (IOException | ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+        }).start();
 
         //listener boton cambiar foto ------------------------------------------------------------------------------- BOTON CAMBIAR FOTO
         btnCambiarFoto.setOnClickListener(view -> {

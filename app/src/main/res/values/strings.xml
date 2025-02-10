@@ -43,6 +43,8 @@
     <string name="txtCIcloCursado">Bideraturiko zikloa:</string>
     <string name="txtNumCurso">Ikastaro-zenbakia:</string>
     <string name="txtModalidadDUAL">DUAL modalitatea:</string>
+    <string name="switchIdiomaEUS">Euskera</string>
+    <string name="switchIdiomaES">Castellano</string>
 
     <!-- Horarios profesor -->
     <string name="txtHorarios">Ordutegiak</string>

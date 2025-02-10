@@ -56,7 +56,7 @@ public class CrearReunion extends AppCompatActivity {
     private List<String[]> listaUsersSpinner = new ArrayList<>();
     private int IDUserReunion;
     private int IDColegio;
-
+    Spinner spinnerColegio;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,7 +87,7 @@ public class CrearReunion extends AppCompatActivity {
         Button btnEscogerHora = findViewById(R.id.btnEscogerHora);
         TextView txtNombreUser = findViewById(R.id.txtNombreUser);
         Spinner spinnerUserReunion = findViewById(R.id.spinnerUser);
-        Spinner spinnerColegio = findViewById(R.id.spinnerColegio);
+         spinnerColegio = findViewById(R.id.spinnerColegio);
         EditText txtAula = findViewById(R.id.editTextAula);
 
         //hilos recoger datos
@@ -96,7 +96,6 @@ public class CrearReunion extends AppCompatActivity {
             recogerDatosUser(txtNombreUser, spinnerUserReunion);
 
             //cuando el anterior termine, recoge datos de los colegios
-            recogerDatosColegios(spinnerColegio);
         }).start();
 
         //setear fecha y hora picker
@@ -153,31 +152,10 @@ public class CrearReunion extends AppCompatActivity {
             int ID = dis.readInt();
             String tipoUserLog = dis.readUTF();
 
-            runOnUiThread(() -> {
-                //setear el id del solicitante en el campo nombreuser
-                txtNombreUser.setText(String.valueOf(ID));
-
-                //actualizar los spinner en el main
-                if (tipoUserLog != null && tipoUserLog.equals(TipoUsuario.PROFESOR.getTipoUser())) {
-                    obtenerAlumnosParaProfesores(spinnerUserReunion);
-                } else {
-                    obtenerProfesoresParaAlumnos(spinnerUserReunion);
-                }
-            });
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    //colegios
-    private void recogerDatosColegios(Spinner spinnerColegio) {
-        try {
-            //opcion seleccionada 15 recoger datos colegios
-            int accion = 15;
+            //datos oolegios
+             accion = 15;
             dos.writeInt(accion);
             dos.flush();
-
-            Log.d("ACCIONNNNNNNNNNNNNN", "accion: " + accion);
 
             //lista colegios
             listaColegios = (List<Colegio>) ois.readObject();
@@ -188,9 +166,17 @@ public class CrearReunion extends AppCompatActivity {
                 nombresColegios.add(colegio.getNombre());
             }
 
-            //actualizar el spinner
             runOnUiThread(() -> {
-                //arrayadapter para el spinner
+                //setear el id del solicitante en el campo nombreuser
+                txtNombreUser.setText(String.valueOf(ID));
+
+                //actualizar los spinner en el main
+                if (tipoUserLog != null && tipoUserLog.equals(TipoUsuario.PROFESOR.getTipoUser())) {
+                    obtenerAlumnosParaProfesores(spinnerUserReunion);
+                } else {
+                    obtenerProfesoresParaAlumnos(spinnerUserReunion);
+                }
+
                 ArrayAdapter<String> adapter = new ArrayAdapter<>(CrearReunion.this, android.R.layout.simple_spinner_item, nombresColegios);
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 //seteamos el adapter al spinner
@@ -212,9 +198,16 @@ public class CrearReunion extends AppCompatActivity {
                         }
                     }
                 });
+
+
+
             });
-        } catch (IOException | ClassNotFoundException e) {
+
+
+        } catch (IOException e) {
             e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -274,8 +267,6 @@ public class CrearReunion extends AppCompatActivity {
             dos.writeInt(accion);
             dos.flush();
 
-            Log.d("ACCIONNNNNNNNNNNNNN", "accion: " + accion);
-
             synchronized (oos) { //para que no salte error
                 //enviar objeto reunion
                 oos.writeObject(nuevaReunion);
@@ -320,10 +311,8 @@ public class CrearReunion extends AppCompatActivity {
                 dos.writeInt(accion);
                 dos.flush();
 
-                Log.d("LISTAAAAAAAAAAAAA", "Lista de usuarios recibida1: " + listaUsersSpinner.size());
                 //lista de profesores
                 listaUsersSpinner = (List<String[]>) ois.readObject();
-                Log.d("LISTAAAAAAAAAAAAA", "Lista de usuarios recibida2length: " + listaUsersSpinner.size());
                 runOnUiThread(() -> {
                     if (listaUsersSpinner != null && !listaUsersSpinner.isEmpty()) {
                         actualizarSpinner(spinnerUserReunion, listaUsersSpinner);
@@ -331,7 +320,6 @@ public class CrearReunion extends AppCompatActivity {
                         Log.d("ERROR", "Lista de usuarios está vacía.");
                     }
                 });
-                Log.d("LISTAAAAAAAAAAAAA", "Lista de usuarios recibida2: " + listaUsersSpinner.size());
             } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();
             }
@@ -343,11 +331,9 @@ public class CrearReunion extends AppCompatActivity {
         List<String> nombresApellidos = new ArrayList<>();
 
         //combinamos nombre y apellido para cada usuario
-        Log.d("LISTAAAAAAAAAAAAA", "Lista de usuarios recibida3: " + listaUsersSpinner.size());
         for (String[] userInfo : listaUsersSpinner) {
             //concatenar nombre y apellido desde el String[] (userInfo)
             String nombreCompleto = userInfo[1] + " " + userInfo[2]; // [1] = Name, [2] = Surname
-            Log.d("LISTAAAAAAAAAAAAA", "Nombre completo4: " + nombreCompleto); // Log the name
             nombresApellidos.add(nombreCompleto);
         }
 
