@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/azulBlanco"
+    tools:context=".InterfazEstudiante.InformacionReunionEstudiante">
+
+    <ImageButton
+        android:id="@+id/imageButtonAtrasMP5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/circular_button_background"
+        android:contentDescription="@string/descBotonAtras"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.047"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.024"
+        app:srcCompat="@drawable/baseline_arrow_back_24" />
+
+    <TextView
+        android:id="@+id/txtInformacionReunionE"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/txtInfoReunion"
+        android:textAllCaps="true"
+        android:textColor="@color/azulOscuro"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.116" />
+
+    <TextView
+        android:id="@+id/txtEstadoE"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="40dp"
+        android:text="@string/txtEstado"
+        android:textColor="@color/azulOscuro"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtInformacionReunionE" />
+
+    <TextView
+        android:id="@+id/txtEstadoInfoE"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="@string/txtEstadoInfo"
+        android:textColor="@color/azulOscuro"
+        app:layout_constraintStart_toEndOf="@id/txtEstadoE"
+        app:layout_constraintTop_toTopOf="@id/txtEstadoE" />
+
+    <TextView
+        android:id="@+id/txtTituloRE"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="50dp"
+        android:text="@string/txtTituloR"
+        android:textColor="@color/azulOscuro"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtEstadoE" />
+
+    <TextView
+        android:id="@+id/txtTituloInfoE"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="@string/txtTituloRInfo"
+        android:textColor="@color/azulOscuro"
+        app:layout_constraintStart_toEndOf="@id/txtTituloRE"
+        app:layout_constraintTop_toTopOf="@id/txtTituloRE" />
+
+    <TextView
+        android:id="@+id/txtTemaRE"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="50dp"
+        android:text="@string/txtTemaR"
+        android:textColor="@color/azulOscuro"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtTituloRE" />
+
+    <TextView
+        android:id="@+id/txtTemaInfoE"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="@string/txtTemaRInfo"
+        android:textColor="@color/azulOscuro"
+        app:layout_constraintStart_toEndOf="@id/txtTemaRE"
+        app:layout_constraintTop_toTopOf="@id/txtTemaRE" />
+
+    <TextView
+        android:id="@+id/txtDiaHoraRE"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="50dp"
+        android:text="@string/txtDiaHoraR"
+        android:textColor="@color/azulOscuro"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtTemaRE" />
+
+    <TextView
+        android:id="@+id/txtDiaHoraInfoE"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="@string/txtDiaHoraRInfo"
+        android:textColor="@color/azulOscuro"
+        app:layout_constraintStart_toEndOf="@id/txtDiaHoraRE"
+        app:layout_constraintTop_toTopOf="@id/txtDiaHoraRE" />
+
+    <TextView
+        android:id="@+id/txtUbicacionRE"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="50dp"
+        android:text="@string/txtUbicacionR"
+        android:textColor="@color/azulOscuro"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtDiaHoraRE" />
+
+    <TextView
+        android:id="@+id/txtUbicacionInfoE"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="@string/txtUbicacionRInfo"
+        android:textColor="@color/azulOscuro"
+        app:layout_constraintStart_toEndOf="@id/txtUbicacionRE"
+        app:layout_constraintTop_toTopOf="@id/txtUbicacionRE" />
+
+    <TextView
+        android:id="@+id/txtMiembrosReunionRE"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="50dp"
+        android:text="@string/txtMiembrosReunionR"
+        android:textColor="@color/azulOscuro"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtUbicacionRE" />
+
+    <TextView
+        android:id="@+id/txtMiembrosInfoE"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="@string/txtMiembrosReunionRInfo"
+        android:textColor="@color/azulOscuro"
+        app:layout_constraintStart_toEndOf="@id/txtMiembrosReunionRE"
+        app:layout_constraintTop_toTopOf="@id/txtMiembrosReunionRE" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

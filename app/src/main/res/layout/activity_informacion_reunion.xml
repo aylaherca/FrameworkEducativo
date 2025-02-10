@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/azulBlanco"
+    tools:context=".InterfazProfesor.InformacionReunion">
+
+    <ImageButton
+        android:id="@+id/imageButtonAtrasMP5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/circular_button_background"
+        android:contentDescription="@string/descBotonAtras"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.047"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.024"
+        app:srcCompat="@drawable/baseline_arrow_back_24" />
+
+    <TextView
+        android:id="@+id/txtInformacionReunion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/txtInfoReunion"
+        android:textAllCaps="true"
+        android:textColor="@color/azulOscuro"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.116" />
+
+    <TextView
+        android:id="@+id/txtEstado"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="40dp"
+        android:text="@string/txtEstado"
+        android:textColor="@color/azulOscuro"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtInformacionReunion" />
+
+    <TextView
+        android:id="@+id/txtEstadoInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="@string/txtEstadoInfo"
+        android:textColor="@color/azulOscuro"
+        app:layout_constraintStart_toEndOf="@id/txtEstado"
+        app:layout_constraintTop_toTopOf="@id/txtEstado" />
+
+    <TextView
+        android:id="@+id/txtTituloR"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="50dp"
+        android:text="@string/txtTituloR"
+        android:textColor="@color/azulOscuro"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtEstado" />
+
+    <TextView
+        android:id="@+id/txtTituloInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="@string/txtTituloRInfo"
+        android:textColor="@color/azulOscuro"
+        app:layout_constraintStart_toEndOf="@id/txtTituloR"
+        app:layout_constraintTop_toTopOf="@id/txtTituloR" />
+
+    <TextView
+        android:id="@+id/txtTemaR"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="50dp"
+        android:text="@string/txtTemaR"
+        android:textColor="@color/azulOscuro"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtTituloR" />
+
+    <TextView
+        android:id="@+id/txtTemaInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="@string/txtTemaRInfo"
+        android:textColor="@color/azulOscuro"
+        app:layout_constraintStart_toEndOf="@id/txtTemaR"
+        app:layout_constraintTop_toTopOf="@id/txtTemaR" />
+
+    <TextView
+        android:id="@+id/txtDiaHoraR"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="50dp"
+        android:text="@string/txtDiaHoraR"
+        android:textColor="@color/azulOscuro"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtTemaR" />
+
+    <TextView
+        android:id="@+id/txtDiaHoraInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="@string/txtDiaHoraRInfo"
+        android:textColor="@color/azulOscuro"
+        app:layout_constraintStart_toEndOf="@id/txtDiaHoraR"
+        app:layout_constraintTop_toTopOf="@id/txtDiaHoraR" />
+
+    <TextView
+        android:id="@+id/txtUbicacionR"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="50dp"
+        android:text="@string/txtUbicacionR"
+        android:textColor="@color/azulOscuro"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtDiaHoraR" />
+
+    <TextView
+        android:id="@+id/txtUbicacionInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="@string/txtUbicacionRInfo"
+        android:textColor="@color/azulOscuro"
+        app:layout_constraintStart_toEndOf="@id/txtUbicacionR"
+        app:layout_constraintTop_toTopOf="@id/txtUbicacionR" />
+
+    <TextView
+        android:id="@+id/txtMiembrosReunionR"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="50dp"
+        android:text="@string/txtMiembrosReunionR"
+        android:textColor="@color/azulOscuro"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtUbicacionR" />
+
+    <TextView
+        android:id="@+id/txtMiembrosInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="@string/txtMiembrosReunionRInfo"
+        android:textColor="@color/azulOscuro"
+        app:layout_constraintStart_toEndOf="@id/txtMiembrosReunionR"
+        app:layout_constraintTop_toTopOf="@id/txtMiembrosReunionR" />
+
+    <Button
+        android:id="@+id/btnAceptarR"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:backgroundTint="@color/azulMedio"
+        android:text="@string/btnAceptarR"
+        app:cornerRadius="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.068"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.929" />
+
+    <Button
+        android:id="@+id/btnRechazarR"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        android:backgroundTint="@color/naranja"
+        android:text="@string/btnRechazarR"
+        app:cornerRadius="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.955"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.929" />
+</androidx.constraintlayout.widget.ConstraintLayout>

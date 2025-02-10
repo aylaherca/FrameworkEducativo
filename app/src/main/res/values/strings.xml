@@ -1,0 +1,113 @@
+<resources>
+    <string name="app_name">Framework Educativo</string>
+
+    <string name="descLogoElorrieta">Logo Elorrieta</string>
+    <string name="descLogoGif">Logo Gif</string>
+    <string name="datoNoEncontrado"> - </string>
+
+
+    <!-- Botones -->
+    <string name="btnEntrar">Sartu</string>
+
+    <!-- Login -->
+    <string name="phUser">Erabiltzailea</string>
+    <string name="phContrasena">Pasahitza</string>
+    <string name="txtRecuperarContrasena"><u>Pasahitza ahaztu duzu?</u></string>
+    <string name="btnLogin">Saioa hasi</string>
+    <string name="textoRecuperarC">Kaixo,\n\nzure pasahitz berria %1$s da.\n\nAgur bero bat,\nELorbase taldea.</string> <!-- %1$s es un placeholder para la variable que hay que meter -->
+    <string name="toatsEmailNoEncontrado">Ez da email-a aurkitu</string>
+    <string name="toastErrorMandarEmail">Ezin izan da emaila bidali</string>
+
+    <!-- Menu -->
+    <string name="mensaje">Ongi etorri!</string>
+    <string name="descBotonPerfil">Erabiltzaile-profilaren botoia</string>
+    <string name="descBotonDesconectar">Deskonektatzeko botoia</string>
+    <string name="btnConsultarHorarios">ordutegiak kontsultatu</string>
+    <string name="btnReuniones">Bilerak</string>
+    <string name="btnHorariosPropios">Nire ordutegiak</string>
+    <string name="btnHorariosProfesores">Irakasleen ordutegiak</string>
+    <string name="btnCrearReuniones">Bilera sortu</string>
+    <string name="btnConsultarReuniones">Bilerak kontsultatu</string>
+    <string name="btnConsultarDatosEstudiantes">Ikasleen datuak kontsultatu</string>
+
+    <!-- Perfil estudiante -->
+    <string name="txtNombre">Izena:</string>
+    <string name="txtEmail">Email-a:</string>
+    <string name="txtUsuario">Erabiltzailea:</string>
+    <string name="txtApellidos">Abizenak:</string>
+    <string name="txtDNI">NAN:</string>
+    <string name="txtCmabiarFoto">Argazkia aldatu</string>
+    <string name="descBotonAtras">Itzultzeko botoia</string>
+    <string name="txtDatosGenerales">Datu orokorrak</string>
+    <string name="txtDatosAcademicos">Datu akademikoak</string>
+    <string name="txtCIcloCursado">Bideraturiko zikloa:</string>
+    <string name="txtNumCurso">Ikastaro-zenbakia:</string>
+    <string name="txtModalidadDUAL">DUAL modalitatea:</string>
+    <string name="switchIdiomaEUS">Euskera</string>
+    <string name="switchIdiomaES">Castellano</string>
+
+    <!-- Horarios profesor -->
+    <string name="txtHorarios">Ordutegiak</string>
+    <string name="descTablaHorarios">Ordutegi-taula</string>
+
+    <!-- Datos estudiantes ventana -->
+    <string name="txtGrupo">Taldea:</string>
+    <string name="txtCiclo">Zikloa:</string>
+    <string name="txtCursoAcademico">Ikastaro akademikoa:</string>
+    <string name="txtDatosEstudiantes">Ikasle zerrenda</string>
+    <string name="descFotoPersona">Erabiltzaile argazkia</string>
+
+    <!-- Crear reunion -->
+    <string name="txtCrearReunion">Bilera sortu</string>
+    <string name="txtTitulo">Izenburua:</string>
+    <string name="txtTema">Gaia:</string>
+    <string name="txtDiaHora">Eguna eta ordua:</string>
+    <string name="txtAula">Ikasgela:</string>
+    <string name="txtUbicacion">Tokia:</string>
+    <string name="txtMiembrosReunion">Bilerako kideak:</string>
+    <string name="btnCrearNuevaReunion">Bilera berria sortu</string>
+    <string name="phTitulo">Bileraren helburua</string>
+    <string name="phTema">Aztertu beharreko gaien deskribapen laburra</string>
+    <string name="txtNombreUsuario">Erabiltzaile eskatzailearen Id-a</string>
+    <string name="hintUbiacion">Ikastetxearen izena idatzi</string>
+    <string name="hintAula">Bilerarako ikasgela</string>
+    <string name="btnEscogerFecha">Data aukeratu</string>
+    <string name="btnEscogerHora">Hordua aukeratu</string>
+
+
+    <!-- Informacion reunion -->
+    <string name="txtInfoReunion">Bilerari buruzko informazioa</string>
+    <string name="txtEstado">Egoera:</string>
+    <string name="txtTituloR">Izenburua:</string>
+    <string name="txtTemaR">Gaia:</string>
+    <string name="txtDiaHoraR">Eguna eta ordua:</string>
+    <string name="txtAulaR">Ikasgela:</string>
+    <string name="txtUbicacionR">Tokia:</string>
+    <string name="txtMiembrosReunionR">Bilerako kideak:</string>
+
+    <string name="txtEstadoInfo">Egoera</string>
+    <string name="txtTituloRInfo">Izenburua</string>
+    <string name="txtTemaRInfo">Gaia</string>
+    <string name="txtDiaHoraRInfo">Eguna eta ordua</string>
+    <string name="txtAulaRInfo">Ikasgela</string>
+    <string name="txtUbicacionRInfo">Tokia</string>
+    <string name="txtMiembrosReunionRInfo">Bilerako kideak</string>
+    
+    <string name="btnAceptarR">Bilera onartu</string>
+    <string name="btnRechazarR">Bilera ukatu</string>
+
+    <!-- Datos profesores -->
+    <string name="txtListaProfesores">Irakasle zerrenda</string>
+    <string name="txtNombreP">Izena</string>
+    <string name="txtApellidoP">Abizena</string>
+    <string name="btnRestablecerFiltros">Filtroa berrezarri</string>
+
+    <!-- Toast -->
+    <string name="toastRecuperarC">Zure posta elektronikoa begiratu pasahitza berreskuratzeko, mesedez.</string>
+    <string name="toastLoginCorrecto">Login zuzena</string>
+    <string name="toastNoExisteUser">Ez da erabiltzailea aurkitu</string>
+    <string name="toastCamposVacios">Eremu hutsak daude</string>
+
+
+
+</resources>
