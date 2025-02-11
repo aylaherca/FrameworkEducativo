@@ -45,6 +45,7 @@
     <string name="txtModalidadDUAL">DUAL modalitatea:</string>
     <string name="switchIdiomaEUS">Euskera</string>
     <string name="switchIdiomaES">Castellano</string>
+    <string name="btnCambiarIdioma">Gazteleraz ipini</string>
 
     <!-- Horarios profesor -->
     <string name="txtHorarios">Ordutegiak</string>

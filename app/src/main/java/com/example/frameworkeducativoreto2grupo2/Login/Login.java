@@ -1,6 +1,7 @@
 package com.example.frameworkeducativoreto2grupo2.Login;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -21,6 +22,7 @@ import com.example.frameworkeducativoreto2grupo2.R;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.util.Locale;
 
 public class Login extends AppCompatActivity {
 
@@ -35,6 +37,7 @@ public class Login extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        aplicarIdioma();
         setContentView(R.layout.activity_login);
 
         Metodos metodos = new Metodos();
@@ -168,6 +171,20 @@ public class Login extends AppCompatActivity {
                 runOnUiThread(() -> Toast.makeText(Login.this, getString(R.string.toastCamposVacios), Toast.LENGTH_SHORT).show());
             }
         }).start();
+    }
+
+    private void aplicarIdioma() {
+        String idioma = obtenerIdioma();
+        Locale nuevoLocale = new Locale(idioma);
+        Locale.setDefault(nuevoLocale);
+        android.content.res.Configuration config = new android.content.res.Configuration();
+        config.setLocale(nuevoLocale);
+        getResources().updateConfiguration(config, getResources().getDisplayMetrics());
+    }
+
+    private String obtenerIdioma() {
+        SharedPreferences prefs = getSharedPreferences("Settings", MODE_PRIVATE);
+        return prefs.getString("Idioma", "eu");
     }
 
     //metodo para abrir el menu del usuario

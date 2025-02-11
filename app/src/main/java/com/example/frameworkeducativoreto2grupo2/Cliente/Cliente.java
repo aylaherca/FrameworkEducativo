@@ -15,9 +15,9 @@ public class Cliente {
     private DataOutputStream dataOutputStream;
     private DataInputStream dataInputStream;
 
-    private static final String IP = "192.168.56.1"; //localhost
+    //private static final String IP = "192.168.56.1"; //localhost
     //private static final String IP = "10.5.13.59"; //pc server
-    //private static final String IP = "192.168.1.142"; //casa**borrar*
+    private static final String IP = "192.168.1.145"; //casa**borrar*
     private static final int PUERTO = 2845;
 
     private Cliente() throws IOException {

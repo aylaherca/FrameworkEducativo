@@ -1,6 +1,7 @@
 package com.example.frameworkeducativoreto2grupo2.InterfazProfesor;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -17,6 +18,8 @@ import com.example.frameworkeducativoreto2grupo2.ConsultarReunion.ConsultarReuni
 import com.example.frameworkeducativoreto2grupo2.CrearReunion.CrearReunion;
 import com.example.frameworkeducativoreto2grupo2.R;
 
+import java.util.Locale;
+
 public class MenuProfesor extends AppCompatActivity {
 
     private boolean subBtnVisible = false; //para checkear si los botones secundarios estan desplegados o no
@@ -26,6 +29,7 @@ public class MenuProfesor extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        aplicarIdioma();
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_menu_profesor);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
@@ -125,5 +129,19 @@ public class MenuProfesor extends AppCompatActivity {
             finish();
         });
 
+    }
+
+    private void aplicarIdioma() {
+        String idioma = obtenerIdioma();
+        Locale nuevoLocale = new Locale(idioma);
+        Locale.setDefault(nuevoLocale);
+        android.content.res.Configuration config = new android.content.res.Configuration();
+        config.setLocale(nuevoLocale);
+        getResources().updateConfiguration(config, getResources().getDisplayMetrics());
+    }
+
+    private String obtenerIdioma() {
+        SharedPreferences prefs = getSharedPreferences("Settings", MODE_PRIVATE);
+        return prefs.getString("Idioma", "eu");
     }
 }

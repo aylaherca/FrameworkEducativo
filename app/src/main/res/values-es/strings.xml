@@ -47,6 +47,7 @@
     <string name="txtModalidadDUAL">Modalidad DUAL:</string>
     <string name="switchIdiomaEUS">Euskera</string>
     <string name="switchIdiomaES">Gaztelania</string>
+    <string name="btnCambiarIdioma">Cambiar a euskera</string>
 
 
     <!-- Horarios profesor -->

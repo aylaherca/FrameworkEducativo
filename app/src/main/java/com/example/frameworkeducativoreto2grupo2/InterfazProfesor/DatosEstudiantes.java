@@ -1,6 +1,7 @@
 package com.example.frameworkeducativoreto2grupo2.InterfazProfesor;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.ImageButton;
 import android.widget.Spinner;
@@ -27,6 +28,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class DatosEstudiantes extends AppCompatActivity {
     private DataInputStream dis;
@@ -41,6 +43,7 @@ public class DatosEstudiantes extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        aplicarIdioma();
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_datos_estudiantes);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
@@ -102,4 +105,19 @@ public class DatosEstudiantes extends AppCompatActivity {
             startActivity(menuProfesor);
         });
     }
+
+    private void aplicarIdioma() {
+        String idioma = obtenerIdioma();
+        Locale nuevoLocale = new Locale(idioma);
+        Locale.setDefault(nuevoLocale);
+        android.content.res.Configuration config = new android.content.res.Configuration();
+        config.setLocale(nuevoLocale);
+        getResources().updateConfiguration(config, getResources().getDisplayMetrics());
+    }
+
+    private String obtenerIdioma() {
+        SharedPreferences prefs = getSharedPreferences("Settings", MODE_PRIVATE);
+        return prefs.getString("Idioma", "eu");
+    }
+
 }

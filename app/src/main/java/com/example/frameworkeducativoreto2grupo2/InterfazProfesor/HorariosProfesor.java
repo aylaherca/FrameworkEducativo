@@ -1,6 +1,7 @@
 package com.example.frameworkeducativoreto2grupo2.InterfazProfesor;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -25,6 +26,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.List;
+import java.util.Locale;
 
 import Modelo.Users;
 
@@ -39,6 +41,7 @@ public class HorariosProfesor extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        aplicarIdioma();
         EdgeToEdge.enable(this);
 
         setContentView(R.layout.activity_horarios_profesor);
@@ -61,6 +64,20 @@ public class HorariosProfesor extends AppCompatActivity {
             startActivity(menuProfesor);
             finish();
         });
+    }
+
+    private void aplicarIdioma() {
+        String idioma = obtenerIdioma();
+        Locale nuevoLocale = new Locale(idioma);
+        Locale.setDefault(nuevoLocale);
+        android.content.res.Configuration config = new android.content.res.Configuration();
+        config.setLocale(nuevoLocale);
+        getResources().updateConfiguration(config, getResources().getDisplayMetrics());
+    }
+
+    private String obtenerIdioma() {
+        SharedPreferences prefs = getSharedPreferences("Settings", MODE_PRIVATE);
+        return prefs.getString("Idioma", "eu");
     }
 
 

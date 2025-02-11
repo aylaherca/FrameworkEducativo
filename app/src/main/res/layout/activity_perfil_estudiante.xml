@@ -8,6 +8,20 @@
     android:background="@color/azulBlanco"
     tools:context=".InterfazEstudiante.PerfilEstudiante">
 
+    <Button
+        android:id="@+id/btnCambiarIdiomaE"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:backgroundTint="@color/azulClaro"
+        android:text="@string/btnCambiarIdioma"
+        app:cornerRadius="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.976" />
+
     <ImageView
         android:id="@+id/imageViewFotoPerfil"
         android:layout_width="160dp"
@@ -295,20 +309,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.633" />
-
-    <Switch
-        android:id="@+id/switchIdiomasEstudiante"
-        android:layout_width="120dp"
-        android:layout_height="50dp"
-        android:text="@string/switchIdiomaEUS"
-        android:checked="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.56"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.976"
-        tools:ignore="UseSwitchCompatOrMaterialXml" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
